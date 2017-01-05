@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="material_preference_title">17sp</dimen>
+    <dimen name="material_preference_height">52dp</dimen>
+</resources>

@@ -1,0 +1,9 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/material_preference_bg_ripple"> <!-- ripple color -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="5dp" />
+        </shape>
+    </item>
+    <item android:drawable="@android:color/white" />
+</ripple>
