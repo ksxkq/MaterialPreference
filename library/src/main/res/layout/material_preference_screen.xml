@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/PreferenceBg"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/leftIconIv"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="gone" />
+
+    <TextView
+        style="@style/PreferenceTitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Name" />
+
+    <TextView
+        style="@style/PreferenceSummaryTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="start"
+        android:gravity="right"
+        android:maxWidth="200dp"
+        android:singleLine="true"
+        tools:text="Summary" />
+
+    <ImageView
+        android:id="@+id/help_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/ic_help"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/right_second_icon_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="8dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/right_icon_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:src="@drawable/ic_chevron_right_white_24dp" />
+
+</LinearLayout>

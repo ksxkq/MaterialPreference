@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="PreferenceTitleTv">
-        <item name="android:id">@id/title_tv</item>
-        <item name="android:textSize">@dimen/material_preference_title</item>
-        <item name="android:textColor">@color/material_preference_catalog_title</item>
-    </style>
-
     <style name="PreferenceBg">
         <item name="android:id">@id/root</item>
         <item name="android:gravity">center_vertical</item>
@@ -19,4 +13,17 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@drawable/bg_material_preference</item>
     </style>
+
+    <style name="PreferenceTitleTv">
+        <item name="android:id">@id/title_tv</item>
+        <item name="android:textSize">@dimen/material_preference_title</item>
+        <item name="android:textColor">@color/material_preference_catalog_title</item>
+    </style>
+
+    <style name="PreferenceSummaryTv">
+        <item name="android:id">@id/summary_tv</item>
+        <item name="android:textColor">@color/material_preference_summary</item>
+        <item name="android:layout_marginRight">4dp</item>
+    </style>
+
 </resources>

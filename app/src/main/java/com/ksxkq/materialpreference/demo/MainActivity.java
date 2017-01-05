@@ -18,6 +18,10 @@ public class MainActivity extends AppCompatActivity {
         MaterialPreferenceManager materialPreferenceManager = new MaterialPreferenceManager(recyclerView);
         materialPreferenceManager.addPreferenceCatalog("testKey", "content")
                 .addPreferenceCatalog("testKey2", "content2")
+                .addPreferenceCatalog("testKey2", "content2")
+                .addPreferenceScreen("s1", R.string.app_name)
+                .addPreferenceScreen("s2", R.string.app_name)
+                .addPreferenceList("11", "list title", R.array.sensitivity_names, R.array.sensitivity_values)
                 .apply();
 
 

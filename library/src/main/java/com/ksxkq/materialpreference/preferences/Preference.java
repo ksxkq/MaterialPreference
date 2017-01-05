@@ -11,6 +11,15 @@ public class Preference {
     private String title;
     private String summary;
 
+    public Preference() {
+
+    }
+
+    public Preference(String key, String title) {
+        setKey(key);
+        setTitle(title);
+    }
+
     public String getKey() {
         return key;
     }

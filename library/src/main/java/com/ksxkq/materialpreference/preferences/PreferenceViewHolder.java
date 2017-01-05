@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.ksxkq.materialpreference.MaterialPreferenceConfig;
 import com.ksxkq.materialpreference.R;
 
 /**
@@ -18,6 +19,14 @@ public class PreferenceViewHolder extends RecyclerView.ViewHolder {
 
     public PreferenceViewHolder(View itemView) {
         super(itemView);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String key = (String) view.getTag(R.id.key);
+                MaterialPreferenceConfig.getInstance().onClick(key, view);
+            }
+        });
+
         mTitleTv = (TextView) itemView.findViewById(R.id.title_tv);
     }
 

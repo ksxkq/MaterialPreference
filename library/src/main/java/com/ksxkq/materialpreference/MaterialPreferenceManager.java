@@ -1,13 +1,18 @@
 package com.ksxkq.materialpreference;
 
 import android.content.Context;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
-import com.ksxkq.materialpreference.preferences.AbsMaterialPreference;
 import com.ksxkq.materialpreference.preferences.PreferenceCatalogProvider;
 import com.ksxkq.materialpreference.preferences.PreferenceCategory;
+import com.ksxkq.materialpreference.preferences.PreferenceList;
+import com.ksxkq.materialpreference.preferences.PreferenceListProvider;
+import com.ksxkq.materialpreference.preferences.PreferenceScreen;
+import com.ksxkq.materialpreference.preferences.PreferenceScreenProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +47,15 @@ public class MaterialPreferenceManager {
         return this;
     }
 
-    public MaterialPreferenceManager addPreferenceScreen() {
+    public MaterialPreferenceManager addPreferenceScreen(String key, @StringRes int titleRes) {
+        PreferenceScreen preferenceScreen = new PreferenceScreen(key, getString(titleRes));
+        mMaterialPreferenceList.add(preferenceScreen);
         return this;
     }
 
-    public MaterialPreferenceManager addPreferenceList() {
+    public MaterialPreferenceManager addPreferenceList(String key, String title, @ArrayRes int names, @ArrayRes int values) {
+        PreferenceList preferenceList = new PreferenceList(key, title, names, values);
+        mMaterialPreferenceList.add(preferenceList);
         return this;
     }
 
@@ -77,7 +86,7 @@ public class MaterialPreferenceManager {
      * @param preference 添加的 Preference
      * @return MaterialPreferenceManager
      */
-    public MaterialPreferenceManager addPreferenceBehind(String key, AbsMaterialPreference preference) {
+    public MaterialPreferenceManager addPreferenceBehind(String key, Object preference) {
         return this;
     }
 
@@ -87,8 +96,13 @@ public class MaterialPreferenceManager {
 
     public void apply() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mAdapter = new MultiTypeAdapter(mMaterialPreferenceList);
+
         mAdapter.register(PreferenceCategory.class, new PreferenceCatalogProvider());
+        mAdapter.register(PreferenceScreen.class, new PreferenceScreenProvider());
+        mAdapter.register(PreferenceList.class, new PreferenceListProvider());
+
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -99,6 +113,10 @@ public class MaterialPreferenceManager {
 
     public void unregisterCallback(OnPreferenceCallback onPreferenceCallback) {
         MaterialPreferenceConfig.getInstance().unregisterOnPreferenceCallback(onPreferenceCallback);
+    }
+
+    private String getString(@StringRes int res) {
+        return mContext.getResources().getString(res);
     }
 
 }

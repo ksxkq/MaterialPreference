@@ -12,22 +12,19 @@ import com.ksxkq.materialpreference.R;
  * Created by xukq on 1/5/17.
  */
 
-public class PreferenceCatalogProvider extends PreferenceProvider<PreferenceCategory> {
+public class PreferenceScreenProvider extends PreferenceProvider {
 
     @NonNull
     @Override
     protected ViewHolder onCreateViewHolder(
             @NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-        View root = inflater.inflate(R.layout.material_preference_catalog, parent, false);
+        View root = inflater.inflate(R.layout.material_preference_screen, parent, false);
         return new ViewHolder(root);
     }
 
     private static class ViewHolder extends PreferenceViewHolder {
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setClickable(false);
         }
-
     }
-
 }

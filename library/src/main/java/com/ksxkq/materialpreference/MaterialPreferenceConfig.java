@@ -1,5 +1,6 @@
 package com.ksxkq.materialpreference;
 
+import android.content.Context;
 import android.view.View;
 
 import java.util.WeakHashMap;
@@ -14,6 +15,7 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
     private static MaterialPreferenceConfig instance;
     private WeakHashMap<OnPreferenceCallback, Object> onPreferenceCallbackList;
     private StorageModule mStorageModule;
+    private UserInputModule mUserInputModule;
 
     private MaterialPreferenceConfig() {
         onPreferenceCallbackList = new WeakHashMap<>();
@@ -40,6 +42,17 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
         this.mStorageModule = storageModule;
     }
 
+    public UserInputModule getUserInputModule(Context context) {
+        if (mUserInputModule == null) {
+            mUserInputModule = new DefaultUserInputModule(context);
+        }
+        return mUserInputModule;
+    }
+
+    public void setUserInputModule(UserInputModule userInputModule) {
+        this.mUserInputModule = userInputModule;
+    }
+
     void registerOnPreferenceCallback(OnPreferenceCallback onPreferenceCallback) {
         onPreferenceCallbackList.put(onPreferenceCallback, "");
     }
@@ -53,5 +66,10 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
         for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackList.keySet()) {
             onPreferenceCallback.onClick(key, view);
         }
+    }
+
+    @Override
+    public void onSingleChoice(String key, String name, String value, View view) {
+
     }
 }

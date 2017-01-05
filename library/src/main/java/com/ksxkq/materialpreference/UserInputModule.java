@@ -1,6 +1,8 @@
 package com.ksxkq.materialpreference;
 
 import android.content.Context;
+import android.support.annotation.ArrayRes;
+import android.view.View;
 
 import java.util.Set;
 
@@ -18,10 +20,9 @@ public interface UserInputModule {
     void showSingleChoiceInput(
             String key,
             CharSequence title,
-            CharSequence[] displayItems,
-            CharSequence[] values,
-            int selected,
-            Listener<String> listener);
+            @ArrayRes int displayItems,
+            @ArrayRes int values,
+            View view);
 
     void showMultiChoiceInput(
             String key,

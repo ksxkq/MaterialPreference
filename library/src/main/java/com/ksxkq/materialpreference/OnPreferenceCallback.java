@@ -11,4 +11,6 @@ public interface OnPreferenceCallback {
 
     void onClick(String key, View view);
 
+    void onSingleChoice(String key, String name, String value, View view);
+
 }

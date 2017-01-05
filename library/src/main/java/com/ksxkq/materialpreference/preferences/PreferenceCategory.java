@@ -7,10 +7,8 @@ package com.ksxkq.materialpreference.preferences;
 
 public class PreferenceCategory extends Preference {
 
-
     public PreferenceCategory(String key, String titleStr) {
-        setKey(key);
-        setTitle(titleStr);
+        super(key, titleStr);
     }
 
 }
