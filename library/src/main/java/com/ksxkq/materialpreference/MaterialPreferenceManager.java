@@ -13,6 +13,8 @@ import com.ksxkq.materialpreference.preferences.PreferenceList;
 import com.ksxkq.materialpreference.preferences.PreferenceListProvider;
 import com.ksxkq.materialpreference.preferences.PreferenceScreen;
 import com.ksxkq.materialpreference.preferences.PreferenceScreenProvider;
+import com.ksxkq.materialpreference.preferences.PreferenceSeekbar;
+import com.ksxkq.materialpreference.preferences.PreferenceSeekbarProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +69,10 @@ public class MaterialPreferenceManager {
         return this;
     }
 
-    public MaterialPreferenceManager addPreferenceSeekbar() {
+    public MaterialPreferenceManager addPreferenceSeekbar(String key, String title, int defaultValue, int min, int max) {
+        int value = MaterialPreferenceConfig.getInstance().getStorageModule().getInt(key, defaultValue);
+        PreferenceSeekbar preferenceSeekbar = new PreferenceSeekbar(key, title, value, min, max);
+        mMaterialPreferenceList.add(preferenceSeekbar);
         return this;
     }
 
@@ -80,10 +85,10 @@ public class MaterialPreferenceManager {
     }
 
     /**
-     * 在指定 Preference 后面添加 Preference
+     * 在指定 BasePreference 后面添加 BasePreference
      *
-     * @param key        指定 Preference 的 key
-     * @param preference 添加的 Preference
+     * @param key        指定 BasePreference 的 key
+     * @param preference 添加的 BasePreference
      * @return MaterialPreferenceManager
      */
     public MaterialPreferenceManager addPreferenceBehind(String key, Object preference) {
@@ -102,6 +107,7 @@ public class MaterialPreferenceManager {
         mAdapter.register(PreferenceCategory.class, new PreferenceCatalogProvider());
         mAdapter.register(PreferenceScreen.class, new PreferenceScreenProvider());
         mAdapter.register(PreferenceList.class, new PreferenceListProvider());
+        mAdapter.register(PreferenceSeekbar.class, new PreferenceSeekbarProvider());
 
         mRecyclerView.setAdapter(mAdapter);
     }

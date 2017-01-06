@@ -7,7 +7,7 @@ import android.support.annotation.ArrayRes;
  * Created by xukq on 1/5/17.
  */
 
-public class PreferenceList extends Preference {
+public class PreferenceList extends BasePreference {
 
     private final int namesRes;
     private final int valuesRes;

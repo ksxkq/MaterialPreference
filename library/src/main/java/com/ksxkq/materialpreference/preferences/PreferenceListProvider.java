@@ -1,9 +1,6 @@
 package com.ksxkq.materialpreference.preferences;
 
-import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.ksxkq.materialpreference.MaterialPreferenceConfig;
 import com.ksxkq.materialpreference.R;
@@ -13,16 +10,16 @@ import com.ksxkq.materialpreference.R;
  * Created by xukq on 1/5/17.
  */
 
-public class PreferenceListProvider extends PreferenceProvider<PreferenceList> {
+public class PreferenceListProvider extends BasePreferenceProvider<PreferenceList> {
 
-    @NonNull
     @Override
-    protected PreferenceViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-        // TODO: 1/5/17 layout 要重新写
-        View root = inflater.inflate(R.layout.material_preference_screen, parent, false);
-        PreferenceViewHolder holder = new PreferenceViewHolder(root);
+    public int getLayoutId() {
+        return R.layout.material_preference_list;
+    }
 
-        root.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onRootView(View rootView) {
+        rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MaterialPreferenceConfig.getInstance().getUserInputModule(view.getContext()).showSingleChoiceInput(
@@ -34,7 +31,6 @@ public class PreferenceListProvider extends PreferenceProvider<PreferenceList> {
                 );
             }
         });
-        return holder;
     }
 
 }

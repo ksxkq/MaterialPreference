@@ -5,17 +5,13 @@ package com.ksxkq.materialpreference.preferences;
  * Created by xukq on 1/5/17.
  */
 
-public class Preference {
+public class BasePreference {
 
     private String key;
     private String title;
     private String summary;
 
-    public Preference() {
-
-    }
-
-    public Preference(String key, String title) {
+    public BasePreference(String key, String title) {
         setKey(key);
         setTitle(title);
     }

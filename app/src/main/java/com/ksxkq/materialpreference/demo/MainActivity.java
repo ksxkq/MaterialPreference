@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
                 .addPreferenceCatalog("testKey2", "content2")
                 .addPreferenceScreen("s1", R.string.app_name)
                 .addPreferenceScreen("s2", R.string.app_name)
+                .addPreferenceSeekbar("s2", "seekbar", 0, 0, 100)
                 .addPreferenceList("11", "list title", R.array.sensitivity_names, R.array.sensitivity_values)
                 .apply();
 

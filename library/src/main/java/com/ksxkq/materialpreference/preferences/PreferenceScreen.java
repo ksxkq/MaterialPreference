@@ -5,7 +5,7 @@ package com.ksxkq.materialpreference.preferences;
  * Created by xukq on 1/5/17.
  */
 
-public class PreferenceScreen extends Preference {
+public class PreferenceScreen extends BasePreference {
     public PreferenceScreen(String key, String title) {
         super(key, title);
     }

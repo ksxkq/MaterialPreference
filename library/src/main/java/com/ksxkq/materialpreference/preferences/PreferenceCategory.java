@@ -5,10 +5,9 @@ package com.ksxkq.materialpreference.preferences;
  * Created by xukq on 1/5/17.
  */
 
-public class PreferenceCategory extends Preference {
+public class PreferenceCategory extends BasePreference {
 
-    public PreferenceCategory(String key, String titleStr) {
-        super(key, titleStr);
+    public PreferenceCategory(String key, String title) {
+        super(key, title);
     }
-
 }

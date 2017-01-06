@@ -2,6 +2,7 @@ package com.ksxkq.materialpreference;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.SeekBar;
 
 import java.util.WeakHashMap;
 
@@ -70,6 +71,21 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
 
     @Override
     public void onSingleChoice(String key, String name, String value, View view) {
+
+    }
+
+    @Override
+    public void onProgressChanged(String key, SeekBar seekBar, int progress, boolean isUser) {
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(String key, SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(String key, SeekBar seekBar) {
 
     }
 }
