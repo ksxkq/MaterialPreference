@@ -42,7 +42,7 @@ public class DefaultUserInputModule implements UserInputModule {
 
                         String selected = values[which];
                         // 保存
-                        MaterialPreferenceConfig.getInstance().getStorageModule().putString(key, selected);
+                        MaterialPreferenceConfig.getInstance().getStorageModule(mContext).putString(key, selected);
                         // 回调
                         MaterialPreferenceConfig.getInstance().onSingleChoice(key, names[which], selected, view);
 

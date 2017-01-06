@@ -33,9 +33,9 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
         return instance;
     }
 
-    public StorageModule getStorageModule() {
+    public StorageModule getStorageModule(Context context) {
         if (mStorageModule == null) {
-            mStorageModule = new SharedPreferenceStorageModule();
+            mStorageModule = new SharedPreferenceStorageModule(context);
         }
         return mStorageModule;
     }

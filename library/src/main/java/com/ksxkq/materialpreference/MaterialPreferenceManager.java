@@ -72,14 +72,14 @@ public class MaterialPreferenceManager {
     }
 
     public MaterialPreferenceManager addPreferenceSeekbar(String key, String title, int defaultValue, int min, int max) {
-        int value = MaterialPreferenceConfig.getInstance().getStorageModule().getInt(key, defaultValue);
+        int value = MaterialPreferenceConfig.getInstance().getStorageModule(mContext).getInt(key, defaultValue);
         PreferenceSeekbar preferenceSeekbar = new PreferenceSeekbar(key, title, value, min, max);
         mMaterialPreferenceList.add(preferenceSeekbar);
         return this;
     }
 
     public MaterialPreferenceManager addPreferenceSwitch(String key, String title, boolean defaultValue) {
-        boolean isChecked = MaterialPreferenceConfig.getInstance().getStorageModule().getBoolean(key, defaultValue);
+        boolean isChecked = MaterialPreferenceConfig.getInstance().getStorageModule(mContext).getBoolean(key, defaultValue);
         PreferenceSwitch preferenceSwitch = new PreferenceSwitch(key, title, isChecked);
         mMaterialPreferenceList.add(preferenceSwitch);
         return this;
