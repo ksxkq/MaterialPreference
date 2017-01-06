@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/PreferenceBg">
+
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:visibility="gone" />
+
+    <TextView
+        style="@style/PreferenceTitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Name" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switch_sc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true" />
+
+</LinearLayout>

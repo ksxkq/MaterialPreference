@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
                 .addPreferenceScreen("s1", R.string.app_name)
                 .addPreferenceScreen("s2", R.string.app_name)
                 .addPreferenceSeekbar("s2", "seekbar", 0, 0, 100)
+                .addPreferenceSwitch("s2", "seekbar", true)
                 .addPreferenceList("11", "list title", R.array.sensitivity_names, R.array.sensitivity_values)
                 .apply();
 

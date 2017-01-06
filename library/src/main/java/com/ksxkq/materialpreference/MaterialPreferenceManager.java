@@ -15,6 +15,8 @@ import com.ksxkq.materialpreference.preferences.PreferenceScreen;
 import com.ksxkq.materialpreference.preferences.PreferenceScreenProvider;
 import com.ksxkq.materialpreference.preferences.PreferenceSeekbar;
 import com.ksxkq.materialpreference.preferences.PreferenceSeekbarProvider;
+import com.ksxkq.materialpreference.preferences.PreferenceSwitch;
+import com.ksxkq.materialpreference.preferences.PreferenceSwitchProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +78,10 @@ public class MaterialPreferenceManager {
         return this;
     }
 
-    public MaterialPreferenceManager addPreferenceSwitch() {
+    public MaterialPreferenceManager addPreferenceSwitch(String key, String title, boolean defaultValue) {
+        boolean isChecked = MaterialPreferenceConfig.getInstance().getStorageModule().getBoolean(key, defaultValue);
+        PreferenceSwitch preferenceSwitch = new PreferenceSwitch(key, title, isChecked);
+        mMaterialPreferenceList.add(preferenceSwitch);
         return this;
     }
 
@@ -108,6 +113,7 @@ public class MaterialPreferenceManager {
         mAdapter.register(PreferenceScreen.class, new PreferenceScreenProvider());
         mAdapter.register(PreferenceList.class, new PreferenceListProvider());
         mAdapter.register(PreferenceSeekbar.class, new PreferenceSeekbarProvider());
+        mAdapter.register(PreferenceSwitch.class, new PreferenceSwitchProvider());
 
         mRecyclerView.setAdapter(mAdapter);
     }

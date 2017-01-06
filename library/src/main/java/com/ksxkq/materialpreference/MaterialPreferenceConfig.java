@@ -2,6 +2,7 @@ package com.ksxkq.materialpreference;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 
 import java.util.WeakHashMap;
@@ -86,6 +87,11 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
 
     @Override
     public void onStopTrackingTouch(String key, SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onCheckedChanged(String key, CompoundButton compoundButton, boolean isChecked) {
 
     }
 }

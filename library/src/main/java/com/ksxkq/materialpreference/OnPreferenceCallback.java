@@ -1,6 +1,7 @@
 package com.ksxkq.materialpreference;
 
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 
 /**
@@ -19,5 +20,7 @@ public interface OnPreferenceCallback {
     void onStartTrackingTouch(String key, SeekBar seekBar);
 
     void onStopTrackingTouch(String key, SeekBar seekBar);
+
+    void onCheckedChanged(String key, CompoundButton compoundButton, boolean isChecked);
 
 }

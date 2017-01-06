@@ -23,7 +23,7 @@ public class PreferenceSeekbarProvider extends BasePreferenceProvider<Preference
     protected RecyclerView.ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
         // 注意：preference 是在 onBindViewHolder 的时候才赋值
         View root = inflater.inflate(getLayoutId(), parent, false);
-        final BasePreferenceSeekbarViewHolder viewHolder = new BasePreferenceSeekbarViewHolder(root);
+        final PreferenceSeekbarViewHolder viewHolder = new PreferenceSeekbarViewHolder(root);
         final MaterialPreferenceConfig preferenceConfig = com.ksxkq.materialpreference.MaterialPreferenceConfig.getInstance();
         viewHolder.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -48,7 +48,7 @@ public class PreferenceSeekbarProvider extends BasePreferenceProvider<Preference
     @Override
     protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder h, @NonNull Object p) {
         super.onBindViewHolder(h, p);
-        BasePreferenceSeekbarViewHolder viewHolder = (BasePreferenceSeekbarViewHolder) h;
+        PreferenceSeekbarViewHolder viewHolder = (PreferenceSeekbarViewHolder) h;
         viewHolder.seekBar.setMax(preference.getMax());
         viewHolder.seekBar.setProgress(preference.getValue());
         viewHolder.valueTv.setText(String.valueOf(preference.getValue()));
@@ -59,11 +59,11 @@ public class PreferenceSeekbarProvider extends BasePreferenceProvider<Preference
         return R.layout.material_preference_seekbar;
     }
 
-    private static class BasePreferenceSeekbarViewHolder extends BasePreferenceViewHolder {
+    private static class PreferenceSeekbarViewHolder extends BasePreferenceViewHolder {
         SeekBar seekBar;
         TextView valueTv;
 
-        BasePreferenceSeekbarViewHolder(View itemView) {
+        PreferenceSeekbarViewHolder(View itemView) {
             super(itemView);
             seekBar = (SeekBar) itemView.findViewById(R.id.seekbar_sb);
             valueTv = (TextView) itemView.findViewById(R.id.value_tv);

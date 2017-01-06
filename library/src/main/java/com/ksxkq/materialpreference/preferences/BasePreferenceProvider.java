@@ -32,6 +32,7 @@ public abstract class BasePreferenceProvider<T extends BasePreference> extends I
     @NonNull
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
+        // 注意：preference 是在 onBindViewHolder 的时候才赋值
         View root = inflater.inflate(getLayoutId(), parent, false);
         BasePreferenceViewHolder holder = new BasePreferenceViewHolder(root);
         // item 默认可以点击，如果要禁用，到子类禁用
