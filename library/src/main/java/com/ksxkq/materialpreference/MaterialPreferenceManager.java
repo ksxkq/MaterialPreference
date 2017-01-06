@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.ksxkq.materialpreference.preferences.PreferenceCatalogProvider;
 import com.ksxkq.materialpreference.preferences.PreferenceCategory;
+import com.ksxkq.materialpreference.preferences.PreferenceCheckbox;
+import com.ksxkq.materialpreference.preferences.PreferenceCheckboxProvider;
 import com.ksxkq.materialpreference.preferences.PreferenceList;
 import com.ksxkq.materialpreference.preferences.PreferenceListProvider;
 import com.ksxkq.materialpreference.preferences.PreferenceScreen;
@@ -85,6 +87,13 @@ public class MaterialPreferenceManager {
         return this;
     }
 
+    public MaterialPreferenceManager addPreferenceCheckbox(String key, String title, boolean defaultValue) {
+        boolean isChecked = MaterialPreferenceConfig.getInstance().getStorageModule(mContext).getBoolean(key, defaultValue);
+        PreferenceCheckbox preferenceCheckbox = new PreferenceCheckbox(key, title, isChecked);
+        mMaterialPreferenceList.add(preferenceCheckbox);
+        return this;
+    }
+
     public MaterialPreferenceManager addPreferenceEditText() {
         return this;
     }
@@ -114,6 +123,7 @@ public class MaterialPreferenceManager {
         mAdapter.register(PreferenceList.class, new PreferenceListProvider());
         mAdapter.register(PreferenceSeekbar.class, new PreferenceSeekbarProvider());
         mAdapter.register(PreferenceSwitch.class, new PreferenceSwitchProvider());
+        mAdapter.register(PreferenceCheckbox.class, new PreferenceCheckboxProvider());
 
         mRecyclerView.setAdapter(mAdapter);
     }
