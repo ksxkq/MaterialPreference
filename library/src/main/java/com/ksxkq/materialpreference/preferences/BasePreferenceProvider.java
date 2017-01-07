@@ -14,6 +14,7 @@ import me.drakeet.multitype.ItemViewProvider;
 
 /**
  * OnePiece
+ * 这里面只负责填充内容
  * Created by xukq on 1/5/17.
  */
 

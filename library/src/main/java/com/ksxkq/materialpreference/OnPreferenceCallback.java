@@ -13,6 +13,8 @@ public interface OnPreferenceCallback {
 
     void onClick(String key, View view);
 
+    void onSecondIconClick(String key, View view);
+
     void onSingleChoice(String key, String name, String value, View view);
 
     void onProgressChanged(String key, SeekBar seekBar, int progress, boolean isUser);

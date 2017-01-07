@@ -86,6 +86,13 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
     }
 
     @Override
+    public void onSecondIconClick(String key, View view) {
+        for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackList.keySet()) {
+            onPreferenceCallback.onSecondIconClick(key, view);
+        }
+    }
+
+    @Override
     public void onSingleChoice(String key, String name, String value, View view) {
 
     }
