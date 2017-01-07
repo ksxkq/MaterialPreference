@@ -1,5 +1,6 @@
 package com.ksxkq.materialpreference.demo;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.view.View;
 import com.ksxkq.materialpreference.MaterialPreferenceManager;
 import com.ksxkq.materialpreference.preferences.BasePreference;
 import com.ksxkq.materialpreference.preferences.PreferenceScreen;
+import com.ksxkq.materialpreference.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
 //        list.add(newPreference2);
 //        list.add(newPreference3);
         BasePreference basePreference = (BasePreference) newList.remove(2);
-        basePreference.setRightSecondIconDrawable(getResources().getDrawable(R.drawable.information_outline));
+        Drawable tintDrawable = ThemeUtils.tintDrawable(getResources().getDrawable(R.drawable.information_outline), getColor(R.color.material_preference_summary));
+        basePreference.setRightSecondIconDrawable(tintDrawable);
         newList.add(3,basePreference);
         materialPreferenceManager.updatePreferences(newList);
     }

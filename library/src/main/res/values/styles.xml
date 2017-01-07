@@ -18,7 +18,7 @@
         <item name="android:id">@id/title_tv</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
         <item name="android:textSize">@dimen/material_preference_category_title_size</item>
-        <item name="android:textColor">@color/material_primary_color</item>
+        <item name="android:textColor">?android:colorPrimary</item>
     </style>
 
     <style name="PreferenceTitleTv">

@@ -1,7 +1,7 @@
 package com.ksxkq.materialpreference;
 
 import android.content.Context;
-import android.support.annotation.ColorRes;
+import android.support.annotation.ColorInt;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
@@ -58,11 +58,6 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
     }
 
     public Theme getTheme() {
-        if (mTheme == null) {
-            mTheme = new Theme();
-            mTheme.setAccentColor(R.color.material_accent_color);
-            mTheme.setPrimaryColor(R.color.material_primary_color);
-        }
         return mTheme;
     }
 
@@ -117,12 +112,12 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
 
     }
 
-    public class Theme {
+    public static class Theme {
         private
-        @ColorRes
+        @ColorInt
         int primaryColor;
         private
-        @ColorRes
+        @ColorInt
         int accentColor;
 
         public int getPrimaryColor() {

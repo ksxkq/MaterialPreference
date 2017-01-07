@@ -22,6 +22,7 @@ import com.ksxkq.materialpreference.preferences.PreferenceSeekbar;
 import com.ksxkq.materialpreference.preferences.PreferenceSeekbarProvider;
 import com.ksxkq.materialpreference.preferences.PreferenceSwitch;
 import com.ksxkq.materialpreference.preferences.PreferenceSwitchProvider;
+import com.ksxkq.materialpreference.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,11 @@ public class MaterialPreferenceManager {
         mMaterialPreferenceList = new ArrayList<>();
         mRecyclerView = recyclerView;
         mContext = mRecyclerView.getContext();
+
+        MaterialPreferenceConfig.Theme theme = new MaterialPreferenceConfig.Theme();
+        theme.setPrimaryColor(ThemeUtils.getThemeAttrColor(mContext, R.attr.colorPrimary));
+        theme.setAccentColor(ThemeUtils.getThemeAttrColor(mContext, R.attr.colorAccent));
+        MaterialPreferenceConfig.getInstance().setTheme(theme);
     }
 
     public MaterialPreferenceManager addPreferenceCatalog(String key, @StringRes int titleRes) {

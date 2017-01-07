@@ -22,7 +22,7 @@ public class PreferenceListProvider extends BasePreferenceProvider<PreferenceLis
     @Override
     public void onRootView(View rootView, BasePreferenceViewHolder holder) {
         final MaterialPreferenceConfig config = MaterialPreferenceConfig.getInstance();
-        int color = rootView.getResources().getColor(config.getTheme().getPrimaryColor());
+        int color = config.getTheme().getPrimaryColor();
         Drawable tintDrawable = ThemeUtils.tintDrawable(rootView.getResources().getDrawable(R.drawable.chevron_down), color);
         holder.rightIconIv.setImageDrawable(tintDrawable);
         rootView.setOnClickListener(new View.OnClickListener() {

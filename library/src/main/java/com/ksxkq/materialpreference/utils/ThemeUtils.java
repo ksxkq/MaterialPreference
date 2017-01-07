@@ -1,9 +1,11 @@
 package com.ksxkq.materialpreference.utils;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.widget.TintTypedArray;
 import android.widget.ImageView;
 
 /**
@@ -12,6 +14,18 @@ import android.widget.ImageView;
  */
 
 public class ThemeUtils {
+
+    private static final int[] TEMP_ARRAY = new int[1];
+
+    public static int getThemeAttrColor(Context context, int attr) {
+        TEMP_ARRAY[0] = attr;
+        TintTypedArray a = TintTypedArray.obtainStyledAttributes(context, null, TEMP_ARRAY);
+        try {
+            return a.getColor(0, 0);
+        } finally {
+            a.recycle();
+        }
+    }
 
     public static void tintImageView(ImageView imageView, @ColorRes int color) {
         imageView.setColorFilter(imageView.getResources().getColor(color));
