@@ -20,7 +20,7 @@ public class PreferenceScreenProvider extends BasePreferenceProvider<PreferenceS
     }
 
     @Override
-    protected void onRootView(View rootView, BasePreferenceViewHolder holder) {
+    protected void onRootView(final View rootView, BasePreferenceViewHolder holder) {
         final MaterialPreferenceConfig config = MaterialPreferenceConfig.getInstance();
         int color = config.getTheme().getPrimaryColor();
         Drawable tintDrawable = ThemeUtils.tintDrawable(rootView.getResources().getDrawable(R.drawable.chevron_right), color);
@@ -28,6 +28,7 @@ public class PreferenceScreenProvider extends BasePreferenceProvider<PreferenceS
         holder.rightSecondIconIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                BasePreference preference = (BasePreference) rootView.getTag(R.id.key);
                 config.onSecondIconClick(preference.getKey(), view);
             }
         });

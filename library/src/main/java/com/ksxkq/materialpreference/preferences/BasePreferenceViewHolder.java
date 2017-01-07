@@ -15,12 +15,14 @@ import com.ksxkq.materialpreference.R;
 public class BasePreferenceViewHolder extends RecyclerView.ViewHolder {
 
     public TextView titleTv;
+    public TextView summaryTv;
     public ImageView rightSecondIconIv;
     public ImageView rightIconIv;
 
     public BasePreferenceViewHolder(View itemView) {
         super(itemView);
         titleTv = (TextView) itemView.findViewById(R.id.title_tv);
+        summaryTv = (TextView) itemView.findViewById(R.id.summary_tv);
         rightSecondIconIv = (ImageView) itemView.findViewById(R.id.right_second_icon_iv);
         rightIconIv = (ImageView) itemView.findViewById(R.id.right_icon_iv);
     }

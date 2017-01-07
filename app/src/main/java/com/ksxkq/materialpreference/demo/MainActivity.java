@@ -1,12 +1,15 @@
 package com.ksxkq.materialpreference.demo;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.ksxkq.materialpreference.MaterialPreferenceManager;
+import com.ksxkq.materialpreference.SimpleOnPreferenceCallback;
 import com.ksxkq.materialpreference.preferences.BasePreference;
 import com.ksxkq.materialpreference.preferences.PreferenceScreen;
 import com.ksxkq.materialpreference.utils.ThemeUtils;
@@ -14,11 +17,11 @@ import com.ksxkq.materialpreference.utils.ThemeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.id.list;
-
 public class MainActivity extends AppCompatActivity {
 
-    MaterialPreferenceManager materialPreferenceManager;
+    private static final int REQUEST_CODE_FOR_SUMMARY = 0;
+    private MaterialPreferenceManager materialPreferenceManager;
+    private SimpleOnPreferenceCallback onPreferenceCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +32,46 @@ public class MainActivity extends AppCompatActivity {
 
         materialPreferenceManager = new MaterialPreferenceManager(recyclerView);
         materialPreferenceManager
-                .addPreferenceCategory("setting", "设置")
-                .addPreferenceScreen("sc2", "应用设置")
+                .addPreferenceCategory("setting_category", "设置")
+                .addPreferenceScreen("setting", "应用设置")
                 .addPreferenceScreen("sc1", "其它设置")
                 .addPreferenceSeekbar("sb1", "亮度设置", 0, 100)
                 .addPreferenceCheckbox("cb1", "CheckBox", true)
                 .addPreferenceSwitch("sw1", "开关", true)
                 .addPreferenceList("list1", "列表", R.array.sensitivity_names, R.array.sensitivity_values)
                 .apply();
+
+        onPreferenceCallback = new SimpleOnPreferenceCallback() {
+            @Override
+            public void onPreferenceClick(String key, View view) {
+                if (TextUtils.equals("setting", key)) {
+                    Intent intent = new Intent(MainActivity.this, ActivitySetting.class);
+                    intent.putExtra("key", key);
+                    startActivityForResult(intent, REQUEST_CODE_FOR_SUMMARY);
+                }
+            }
+        };
+        materialPreferenceManager.registerCallback(onPreferenceCallback);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        materialPreferenceManager.unregisterCallback(onPreferenceCallback);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_FOR_SUMMARY && resultCode == RESULT_OK) {
+            String key = data.getStringExtra("key");
+            String summary = data.getStringExtra("summary");
+            final BasePreference preference = materialPreferenceManager.getPreference(key);
+            if (preference != null) {
+                preference.setSummary(summary);
+                materialPreferenceManager.updatePreference(preference);
+            }
+        }
     }
 
     public void add(View view) {
@@ -73,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateContent(View view) {
-        Drawable tintDrawable = ThemeUtils.tintDrawable(getResources().getDrawable(R.drawable.information_outline), getColor(R.color.material_preference_summary));
+        Drawable tintDrawable = ThemeUtils.tintDrawable(getResources().getDrawable(R.drawable.information_outline), getResources().getColor(R.color.material_preference_summary));
         BasePreference newPreference = list.get(1);
         newPreference.setTitle("新的 Title");
         newPreference.setRightSecondIconDrawable(tintDrawable);

@@ -20,12 +20,13 @@ public class PreferenceSwitchProvider extends BasePreferenceProvider<PreferenceS
     @NonNull
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-        View root = inflater.inflate(getLayoutId(), parent, false);
+        final View root = inflater.inflate(getLayoutId(), parent, false);
         final PreferenceSwitchViewHolder viewHolder = new PreferenceSwitchViewHolder(root);
         viewHolder.compoundButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                MaterialPreferenceConfig preferenceConfig = com.ksxkq.materialpreference.MaterialPreferenceConfig.getInstance();
+                BasePreference preference = (BasePreference) root.getTag(R.id.key);
+                MaterialPreferenceConfig preferenceConfig = MaterialPreferenceConfig.getInstance();
                 preferenceConfig.onCheckedChanged(preference.getKey(), compoundButton, isChecked);
             }
         });
@@ -42,6 +43,7 @@ public class PreferenceSwitchProvider extends BasePreferenceProvider<PreferenceS
     @Override
     protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder h, @NonNull Object p) {
         super.onBindViewHolder(h, p);
+        PreferenceSwitch preference = (PreferenceSwitch) p;
         PreferenceSwitchViewHolder viewHolder = (PreferenceSwitchViewHolder) h;
         viewHolder.compoundButton.setChecked(preference.isChecked());
     }

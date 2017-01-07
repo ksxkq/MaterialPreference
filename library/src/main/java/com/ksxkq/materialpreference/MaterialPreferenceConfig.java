@@ -16,13 +16,13 @@ import java.util.WeakHashMap;
 public class MaterialPreferenceConfig implements OnPreferenceCallback {
 
     private static MaterialPreferenceConfig instance;
-    private WeakHashMap<OnPreferenceCallback, Object> onPreferenceCallbackList;
+    private WeakHashMap<OnPreferenceCallback, Object> onPreferenceCallbackMap;
     private StorageModule mStorageModule;
     private UserInputModule mUserInputModule;
     private Theme mTheme;
 
     private MaterialPreferenceConfig() {
-        onPreferenceCallbackList = new WeakHashMap<>();
+        onPreferenceCallbackMap = new WeakHashMap<>();
     }
 
     public static MaterialPreferenceConfig getInstance() {
@@ -66,23 +66,23 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
     }
 
     void registerOnPreferenceCallback(OnPreferenceCallback onPreferenceCallback) {
-        onPreferenceCallbackList.put(onPreferenceCallback, "");
+        onPreferenceCallbackMap.put(onPreferenceCallback, "");
     }
 
     void unregisterOnPreferenceCallback(OnPreferenceCallback onPreferenceCallback) {
-        onPreferenceCallbackList.remove(onPreferenceCallback);
+        onPreferenceCallbackMap.remove(onPreferenceCallback);
     }
 
     @Override
-    public void onClick(String key, View view) {
-        for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackList.keySet()) {
-            onPreferenceCallback.onClick(key, view);
+    public void onPreferenceClick(String key, View view) {
+        for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackMap.keySet()) {
+            onPreferenceCallback.onPreferenceClick(key, view);
         }
     }
 
     @Override
     public void onSecondIconClick(String key, View view) {
-        for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackList.keySet()) {
+        for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackMap.keySet()) {
             onPreferenceCallback.onSecondIconClick(key, view);
         }
     }

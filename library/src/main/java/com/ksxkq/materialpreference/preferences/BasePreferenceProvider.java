@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ksxkq.materialpreference.MaterialPreferenceConfig;
+import com.ksxkq.materialpreference.R;
 
 import me.drakeet.multitype.ItemViewProvider;
 
@@ -20,14 +21,16 @@ import me.drakeet.multitype.ItemViewProvider;
 
 public abstract class BasePreferenceProvider<T extends BasePreference> extends ItemViewProvider {
 
-    protected T preference;
-
     @Override
     protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder h, @NonNull Object p) {
-        this.preference = (T) p;
+        h.itemView.setTag(R.id.key, p);
+        BasePreference preference = (T) p;
         BasePreferenceViewHolder holder = (BasePreferenceViewHolder) h;
         BasePreference basePreference = (BasePreference) p;
         holder.titleTv.setText(basePreference.getTitle());
+        if (holder.summaryTv != null) {
+            holder.summaryTv.setText(preference.getSummary());
+        }
         if (holder.rightIconIv != null && preference.getRightIconDrawable() != null) {
             final Drawable rightIconDrawable = preference.getRightIconDrawable();
             holder.rightIconIv.setImageDrawable(rightIconDrawable);
@@ -43,14 +46,14 @@ public abstract class BasePreferenceProvider<T extends BasePreference> extends I
     @NonNull
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-        // 注意：preference 是在 onBindViewHolder 的时候才赋值
-        View root = inflater.inflate(getLayoutId(), parent, false);
+        final View root = inflater.inflate(getLayoutId(), parent, false);
         BasePreferenceViewHolder holder = new BasePreferenceViewHolder(root);
         // item 默认可以点击，如果要禁用，到子类禁用
         root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MaterialPreferenceConfig.getInstance().onClick(preference.getKey(), view);
+                BasePreference preference = (BasePreference) root.getTag(R.id.key);
+                MaterialPreferenceConfig.getInstance().onPreferenceClick(preference.getKey(), view);
             }
         });
         onRootView(root, holder);

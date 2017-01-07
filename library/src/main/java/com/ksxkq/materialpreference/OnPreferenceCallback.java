@@ -11,7 +11,7 @@ import android.widget.SeekBar;
 
 public interface OnPreferenceCallback {
 
-    void onClick(String key, View view);
+    void onPreferenceClick(String key, View view);
 
     void onSecondIconClick(String key, View view);
 

@@ -3,6 +3,7 @@ package com.ksxkq.materialpreference;
 import android.content.Context;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -180,6 +181,16 @@ public class MaterialPreferenceManager {
             mAdapter.notifyItemInserted(position);
         }
         return this;
+    }
+
+    @Nullable
+    public BasePreference getPreference(String key) {
+        for (BasePreference preference : mMaterialPreferenceList) {
+            if (TextUtils.equals(preference.getKey(), key)) {
+                return preference;
+            }
+        }
+        return null;
     }
 
     public void removePreference(String key) {
