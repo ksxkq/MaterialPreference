@@ -47,14 +47,27 @@ public class MainActivity extends AppCompatActivity {
         materialPreferenceManager.removePreference("1111");
     }
 
+    private List newList = new ArrayList();
     public void addList(View view) {
-        List<BasePreference> list = new ArrayList<>();
         PreferenceScreen newPreference = new PreferenceScreen("1111" + System.currentTimeMillis(), "listScr");
         PreferenceScreen newPreference2 = new PreferenceScreen("111122" + System.currentTimeMillis(), "listScr2");
         PreferenceScreen newPreference3 = new PreferenceScreen("11112233" + System.currentTimeMillis(), "listScr3");
-        list.add(newPreference);
-        list.add(newPreference2);
-        list.add(newPreference3);
-        materialPreferenceManager.addPreferences(list);
+        newList.add(newPreference);
+        newList.add(newPreference2);
+        newList.add(newPreference3);
+        materialPreferenceManager.addPreferences(newList);
+    }
+
+    public void updateList(View view) {
+        List<BasePreference> list = new ArrayList<>();
+//        PreferenceScreen newPreference = new PreferenceScreen("11111", "updateScr");
+//        PreferenceScreen newPreference2 = new PreferenceScreen("1111221", "updateScr2");
+//        PreferenceScreen newPreference3 = new PreferenceScreen("111122331", "updateScr3");
+//        list.add(newPreference);
+//        list.add(newPreference2);
+//        list.add(newPreference3);
+        BasePreference basePreference = (BasePreference) newList.remove(2);
+        newList.add(3,basePreference);
+        materialPreferenceManager.updatePreferences(newList);
     }
 }

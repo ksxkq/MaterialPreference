@@ -53,18 +53,21 @@ public class MaterialPreferenceManager {
     public MaterialPreferenceManager addPreferenceCatalog(String key, String titleStr) {
         PreferenceCategory preferenceCatalog = new PreferenceCategory(key, titleStr);
         mMaterialPreferenceList.add(preferenceCatalog);
+        notifyItemInserted();
         return this;
     }
 
     public MaterialPreferenceManager addPreferenceScreen(String key, @StringRes int titleRes) {
         PreferenceScreen preferenceScreen = new PreferenceScreen(key, getString(titleRes));
         mMaterialPreferenceList.add(preferenceScreen);
+        notifyItemInserted();
         return this;
     }
 
     public MaterialPreferenceManager addPreferenceList(String key, String title, @ArrayRes int names, @ArrayRes int values) {
         PreferenceList preferenceList = new PreferenceList(key, title, names, values);
         mMaterialPreferenceList.add(preferenceList);
+        notifyItemInserted();
         return this;
     }
 
@@ -80,6 +83,7 @@ public class MaterialPreferenceManager {
         int value = MaterialPreferenceConfig.getInstance().getStorageModule(mContext).getInt(key, defaultValue);
         PreferenceSeekbar preferenceSeekbar = new PreferenceSeekbar(key, title, value, max);
         mMaterialPreferenceList.add(preferenceSeekbar);
+        notifyItemInserted();
         return this;
     }
 
@@ -87,6 +91,7 @@ public class MaterialPreferenceManager {
         boolean isChecked = MaterialPreferenceConfig.getInstance().getStorageModule(mContext).getBoolean(key, defaultValue);
         PreferenceSwitch preferenceSwitch = new PreferenceSwitch(key, title, isChecked);
         mMaterialPreferenceList.add(preferenceSwitch);
+        notifyItemInserted();
         return this;
     }
 
@@ -94,6 +99,7 @@ public class MaterialPreferenceManager {
         boolean isChecked = MaterialPreferenceConfig.getInstance().getStorageModule(mContext).getBoolean(key, defaultValue);
         PreferenceCheckbox preferenceCheckbox = new PreferenceCheckbox(key, title, isChecked);
         mMaterialPreferenceList.add(preferenceCheckbox);
+        notifyItemInserted();
         return this;
     }
 
@@ -102,12 +108,21 @@ public class MaterialPreferenceManager {
     }
 
     public MaterialPreferenceManager addPreferences(List<BasePreference> materialPreferenceList) {
+        int positionStart = mMaterialPreferenceList.size();
+        mMaterialPreferenceList.addAll(materialPreferenceList);
+        if (mAdapter != null) {
+            mAdapter.notifyItemRangeChanged(positionStart, materialPreferenceList.size());
+        }
+        return this;
+    }
+
+    public void updatePreferences(List<BasePreference> materialPreferenceList) {
         if (mAdapter != null) {
             mAdapter.setItems(materialPreferenceList);
         } else {
+            mMaterialPreferenceList.clear();
             mMaterialPreferenceList.addAll(materialPreferenceList);
         }
-        return this;
     }
 
     /**
@@ -127,8 +142,20 @@ public class MaterialPreferenceManager {
             }
         }
         mMaterialPreferenceList.add(position, newPreference);
-        mAdapter.notifyItemInserted(position);
+        if (mAdapter != null) {
+            mAdapter.notifyItemInserted(position);
+        }
         return this;
+    }
+
+    /**
+     * Item 增加后通知更新
+     */
+    private void notifyItemInserted() {
+        if (mAdapter != null) {
+            int position = mMaterialPreferenceList.size() - 1; // 因为已经添加过了，所以 -1
+            mAdapter.notifyItemInserted(position);
+        }
     }
 
     public void removePreference(String key) {
