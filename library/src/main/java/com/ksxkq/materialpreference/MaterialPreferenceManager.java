@@ -52,11 +52,11 @@ public class MaterialPreferenceManager {
         MaterialPreferenceConfig.getInstance().setTheme(theme);
     }
 
-    public MaterialPreferenceManager addPreferenceCatalog(String key, @StringRes int titleRes) {
-        return addPreferenceCatalog(key, mContext.getResources().getString(titleRes));
+    public MaterialPreferenceManager addPreferenceCategory(String key, @StringRes int titleRes) {
+        return addPreferenceCategory(key, mContext.getResources().getString(titleRes));
     }
 
-    public MaterialPreferenceManager addPreferenceCatalog(String key, String titleStr) {
+    public MaterialPreferenceManager addPreferenceCategory(String key, String titleStr) {
         PreferenceCategory preferenceCatalog = new PreferenceCategory(key, titleStr);
         mMaterialPreferenceList.add(preferenceCatalog);
         notifyItemInserted();
@@ -64,7 +64,11 @@ public class MaterialPreferenceManager {
     }
 
     public MaterialPreferenceManager addPreferenceScreen(String key, @StringRes int titleRes) {
-        PreferenceScreen preferenceScreen = new PreferenceScreen(key, getString(titleRes));
+        return addPreferenceScreen(key, getString(titleRes));
+    }
+
+    public MaterialPreferenceManager addPreferenceScreen(String key, String titleStr) {
+        PreferenceScreen preferenceScreen = new PreferenceScreen(key, titleStr);
         mMaterialPreferenceList.add(preferenceScreen);
         notifyItemInserted();
         return this;
@@ -85,6 +89,10 @@ public class MaterialPreferenceManager {
         return this;
     }
 
+    public MaterialPreferenceManager addPreferenceSeekbar(String key, @StringRes int titleRes, int defaultValue, int max) {
+        return addPreferenceSeekbar(key, getString(titleRes), defaultValue, max);
+    }
+
     public MaterialPreferenceManager addPreferenceSeekbar(String key, String title, int defaultValue, int max) {
         int value = MaterialPreferenceConfig.getInstance().getStorageModule(mContext).getInt(key, defaultValue);
         PreferenceSeekbar preferenceSeekbar = new PreferenceSeekbar(key, title, value, max);
@@ -93,12 +101,20 @@ public class MaterialPreferenceManager {
         return this;
     }
 
+    public MaterialPreferenceManager addPreferenceSwitch(String key, @StringRes int titleRes, boolean defaultValue) {
+        return addPreferenceSwitch(key, getString(titleRes), defaultValue);
+    }
+
     public MaterialPreferenceManager addPreferenceSwitch(String key, String title, boolean defaultValue) {
         boolean isChecked = MaterialPreferenceConfig.getInstance().getStorageModule(mContext).getBoolean(key, defaultValue);
         PreferenceSwitch preferenceSwitch = new PreferenceSwitch(key, title, isChecked);
         mMaterialPreferenceList.add(preferenceSwitch);
         notifyItemInserted();
         return this;
+    }
+
+    public MaterialPreferenceManager addPreferenceCheckbox(String key, @StringRes int titleRes, boolean defaultValue) {
+        return addPreferenceCheckbox(key, getString(titleRes), defaultValue);
     }
 
     public MaterialPreferenceManager addPreferenceCheckbox(String key, String title, boolean defaultValue) {
@@ -120,6 +136,18 @@ public class MaterialPreferenceManager {
             mAdapter.notifyItemRangeChanged(positionStart, materialPreferenceList.size());
         }
         return this;
+    }
+
+    public void updatePreference(BasePreference updatePreference) {
+        if (mAdapter != null) {
+            for (int i = 0; i < mMaterialPreferenceList.size(); i++) {
+                BasePreference preference = mMaterialPreferenceList.get(i);
+                if (TextUtils.equals(updatePreference.getKey(), preference.getKey())) {
+                    mAdapter.notifyItemChanged(i);
+                    break;
+                }
+            }
+        }
     }
 
     public void updatePreferences(List<BasePreference> materialPreferenceList) {
@@ -152,16 +180,6 @@ public class MaterialPreferenceManager {
             mAdapter.notifyItemInserted(position);
         }
         return this;
-    }
-
-    /**
-     * Item 增加后通知更新
-     */
-    private void notifyItemInserted() {
-        if (mAdapter != null) {
-            int position = mMaterialPreferenceList.size() - 1; // 因为已经添加过了，所以 -1
-            mAdapter.notifyItemInserted(position);
-        }
     }
 
     public void removePreference(String key) {
@@ -206,6 +224,16 @@ public class MaterialPreferenceManager {
 
     public void unregisterCallback(OnPreferenceCallback onPreferenceCallback) {
         MaterialPreferenceConfig.getInstance().unregisterOnPreferenceCallback(onPreferenceCallback);
+    }
+
+    /**
+     * Item 增加后通知更新
+     */
+    private void notifyItemInserted() {
+        if (mAdapter != null) {
+            int position = mMaterialPreferenceList.size() - 1; // 因为已经添加过了，所以 -1
+            mAdapter.notifyItemInserted(position);
+        }
     }
 
     private String getString(@StringRes int res) {

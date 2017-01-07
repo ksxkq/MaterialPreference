@@ -14,6 +14,8 @@ import com.ksxkq.materialpreference.utils.ThemeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.id.list;
+
 public class MainActivity extends AppCompatActivity {
 
     MaterialPreferenceManager materialPreferenceManager;
@@ -26,52 +28,55 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv);
 
         materialPreferenceManager = new MaterialPreferenceManager(recyclerView);
-        materialPreferenceManager.addPreferenceCatalog("testKey", "content")
-                .addPreferenceCatalog("testKey2", "content2")
-                .addPreferenceCatalog("testKey2", "content2")
-                .addPreferenceScreen("s1", R.string.app_name)
-                .addPreferenceScreen("s2", R.string.app_name)
-                .addPreferenceSeekbar("s23", "seekbar", 0, 100)
-                .addPreferenceSwitch("s24", "seekbar", true)
-                .addPreferenceCheckbox("s25", "seekbar", true)
-                .addPreferenceList("11", "list title", R.array.sensitivity_names, R.array.sensitivity_values)
+        materialPreferenceManager
+                .addPreferenceCategory("setting", "设置")
+                .addPreferenceScreen("sc2", "应用设置")
+                .addPreferenceScreen("sc1", "其它设置")
+                .addPreferenceSeekbar("sb1", "亮度设置", 0, 100)
+                .addPreferenceCheckbox("cb1", "CheckBox", true)
+                .addPreferenceSwitch("sw1", "开关", true)
+                .addPreferenceList("list1", "列表", R.array.sensitivity_names, R.array.sensitivity_values)
                 .apply();
-
-
     }
 
     public void add(View view) {
-        PreferenceScreen newPreference = new PreferenceScreen("112211" + System.currentTimeMillis(), "newScr");
-        materialPreferenceManager.appendPreferenceBehindKey("testKey2", newPreference);
+        PreferenceScreen newPreference = new PreferenceScreen("newScr", "新增 Screen");
+        materialPreferenceManager.appendPreferenceBehindKey("setting", newPreference);
     }
 
     public void remove(View view) {
-        materialPreferenceManager.removePreference("1111");
+        materialPreferenceManager.removePreference("newScr");
     }
 
     private List newList = new ArrayList();
+
     public void addList(View view) {
-        PreferenceScreen newPreference = new PreferenceScreen("1111" + System.currentTimeMillis(), "listScr");
-        PreferenceScreen newPreference2 = new PreferenceScreen("111122" + System.currentTimeMillis(), "listScr2");
-        PreferenceScreen newPreference3 = new PreferenceScreen("11112233" + System.currentTimeMillis(), "listScr3");
+        PreferenceScreen newPreference = new PreferenceScreen("newPreference1", "newPreference1");
+        PreferenceScreen newPreference2 = new PreferenceScreen("newPreference2", "newPreference2");
+        PreferenceScreen newPreference3 = new PreferenceScreen("newPreference3", "newPreference3");
         newList.add(newPreference);
         newList.add(newPreference2);
         newList.add(newPreference3);
         materialPreferenceManager.addPreferences(newList);
     }
 
+    List<BasePreference> list = new ArrayList<>();
+
     public void updateList(View view) {
-        List<BasePreference> list = new ArrayList<>();
-//        PreferenceScreen newPreference = new PreferenceScreen("11111", "updateScr");
-//        PreferenceScreen newPreference2 = new PreferenceScreen("1111221", "updateScr2");
-//        PreferenceScreen newPreference3 = new PreferenceScreen("111122331", "updateScr3");
-//        list.add(newPreference);
-//        list.add(newPreference2);
-//        list.add(newPreference3);
-        BasePreference basePreference = (BasePreference) newList.remove(2);
+        PreferenceScreen newPreference = new PreferenceScreen("updateList1", "updateScr");
+        PreferenceScreen newPreference2 = new PreferenceScreen("updateList2", "updateScr2");
+        PreferenceScreen newPreference3 = new PreferenceScreen("updateList3", "updateScr3");
+        list.add(newPreference);
+        list.add(newPreference2);
+        list.add(newPreference3);
+        materialPreferenceManager.updatePreferences(list);
+    }
+
+    public void updateContent(View view) {
         Drawable tintDrawable = ThemeUtils.tintDrawable(getResources().getDrawable(R.drawable.information_outline), getColor(R.color.material_preference_summary));
-        basePreference.setRightSecondIconDrawable(tintDrawable);
-        newList.add(3,basePreference);
-        materialPreferenceManager.updatePreferences(newList);
+        BasePreference newPreference = list.get(1);
+        newPreference.setTitle("新的 Title");
+        newPreference.setRightSecondIconDrawable(tintDrawable);
+        materialPreferenceManager.updatePreference(newPreference);
     }
 }
