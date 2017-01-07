@@ -1,6 +1,7 @@
 package com.ksxkq.materialpreference;
 
 import android.content.Context;
+import android.support.annotation.ColorRes;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
@@ -18,6 +19,7 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
     private WeakHashMap<OnPreferenceCallback, Object> onPreferenceCallbackList;
     private StorageModule mStorageModule;
     private UserInputModule mUserInputModule;
+    private Theme mTheme;
 
     private MaterialPreferenceConfig() {
         onPreferenceCallbackList = new WeakHashMap<>();
@@ -49,6 +51,19 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
             mUserInputModule = new DefaultUserInputModule(context);
         }
         return mUserInputModule;
+    }
+
+    public void setTheme(Theme theme) {
+        this.mTheme = theme;
+    }
+
+    public Theme getTheme() {
+        if (mTheme == null) {
+            mTheme = new Theme();
+            mTheme.setAccentColor(R.color.material_accent_color);
+            mTheme.setPrimaryColor(R.color.material_primary_color);
+        }
+        return mTheme;
     }
 
     public void setUserInputModule(UserInputModule userInputModule) {
@@ -94,4 +109,30 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
     public void onCheckedChanged(String key, CompoundButton compoundButton, boolean isChecked) {
 
     }
+
+    public class Theme {
+        private
+        @ColorRes
+        int primaryColor;
+        private
+        @ColorRes
+        int accentColor;
+
+        public int getPrimaryColor() {
+            return primaryColor;
+        }
+
+        public void setPrimaryColor(int primaryColor) {
+            this.primaryColor = primaryColor;
+        }
+
+        public int getAccentColor() {
+            return accentColor;
+        }
+
+        public void setAccentColor(int accentColor) {
+            this.accentColor = accentColor;
+        }
+    }
+
 }

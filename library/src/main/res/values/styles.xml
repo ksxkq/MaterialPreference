@@ -14,10 +14,17 @@
         <item name="android:background">@drawable/bg_material_preference</item>
     </style>
 
+    <style name="PreferenceCategoryTitleTv">
+        <item name="android:id">@id/title_tv</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textSize">@dimen/material_preference_category_title_size</item>
+        <item name="android:textColor">@color/material_primary_color</item>
+    </style>
+
     <style name="PreferenceTitleTv">
         <item name="android:id">@id/title_tv</item>
-        <item name="android:textSize">@dimen/material_preference_title</item>
-        <item name="android:textColor">@color/material_preference_catalog_title</item>
+        <item name="android:textSize">@dimen/material_preference_title_size</item>
+        <item name="android:textColor">@color/material_preference_title</item>
     </style>
 
     <style name="PreferenceSummaryTv">

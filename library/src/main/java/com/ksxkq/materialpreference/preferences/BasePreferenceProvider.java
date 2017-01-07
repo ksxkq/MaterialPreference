@@ -1,5 +1,6 @@
 package com.ksxkq.materialpreference.preferences;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,7 +27,16 @@ public abstract class BasePreferenceProvider<T extends BasePreference> extends I
         BasePreferenceViewHolder holder = (BasePreferenceViewHolder) h;
         BasePreference basePreference = (BasePreference) p;
         holder.titleTv.setText(basePreference.getTitle());
-        // 子类去填充子类需要的
+        if (holder.rightIconIv != null && preference.getRightIconDrawable() != null) {
+            final Drawable rightIconDrawable = preference.getRightIconDrawable();
+            holder.rightIconIv.setImageDrawable(rightIconDrawable);
+            holder.rightIconIv.setVisibility(rightIconDrawable != null ? View.VISIBLE : View.INVISIBLE);
+        }
+        if (holder.rightSecondIconIv != null && preference.getRightSecondIconDrawable() != null) {
+            final Drawable rightSecondIconDrawable = preference.getRightSecondIconDrawable();
+            holder.rightSecondIconIv.setImageDrawable(rightSecondIconDrawable);
+            holder.rightSecondIconIv.setVisibility(rightSecondIconDrawable != null ? View.VISIBLE : View.INVISIBLE);
+        }
     }
 
     @NonNull
@@ -42,7 +52,7 @@ public abstract class BasePreferenceProvider<T extends BasePreference> extends I
                 MaterialPreferenceConfig.getInstance().onClick(preference.getKey(), view);
             }
         });
-        onRootView(root);
+        onRootView(root, holder);
         return holder;
     }
 
@@ -50,10 +60,8 @@ public abstract class BasePreferenceProvider<T extends BasePreference> extends I
 
     /**
      * 子类可以在这个回调中，重新设置控件的监听事件
-     *
-     * @param rootView item
      */
-    protected void onRootView(View rootView) {
+    protected void onRootView(View rootView, BasePreferenceViewHolder holder) {
 
     }
 

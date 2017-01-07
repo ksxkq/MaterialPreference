@@ -17,8 +17,8 @@ public class PreferenceCatalogProvider extends BasePreferenceProvider<Preference
     }
 
     @Override
-    protected void onRootView(View rootView) {
-        super.onRootView(rootView);
+    protected void onRootView(View rootView, BasePreferenceViewHolder holder) {
+        super.onRootView(rootView, holder);
         rootView.setClickable(false);
     }
 

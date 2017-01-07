@@ -39,6 +39,7 @@ public class PreferenceSeekbarProvider extends BasePreferenceProvider<Preference
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                preferenceConfig.getStorageModule(seekBar.getContext()).putInt(preference.getKey(), seekBar.getProgress());
                 preferenceConfig.onStopTrackingTouch(preference.getKey(), seekBar);
             }
         });

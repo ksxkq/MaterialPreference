@@ -18,14 +18,6 @@
         android:layout_weight="1"
         android:text="Name" />
 
-    <ImageView
-        android:id="@+id/help_iv"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginRight="4dp"
-        android:visibility="visible"
-        app:srcCompat="@drawable/information_outline" />
-
     <TextView
         style="@style/PreferenceSummaryTv"
         android:layout_width="wrap_content"
@@ -37,7 +29,7 @@
         tools:text="Summary" />
 
     <ImageView
-        android:id="@+id/right_second_icon_iv"
+        android:id="@id/right_second_icon_iv"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginLeft="4dp"
@@ -45,7 +37,7 @@
         android:visibility="gone" />
 
     <ImageView
-        android:id="@+id/right_icon_iv"
+        android:id="@id/right_icon_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"

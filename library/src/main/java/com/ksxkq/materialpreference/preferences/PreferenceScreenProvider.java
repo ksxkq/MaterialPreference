@@ -1,6 +1,11 @@
 package com.ksxkq.materialpreference.preferences;
 
+import android.graphics.drawable.Drawable;
+import android.view.View;
+
+import com.ksxkq.materialpreference.MaterialPreferenceConfig;
 import com.ksxkq.materialpreference.R;
+import com.ksxkq.materialpreference.utils.ThemeUtils;
 
 /**
  * OnePiece
@@ -11,7 +16,14 @@ public class PreferenceScreenProvider extends BasePreferenceProvider<PreferenceS
 
     @Override
     public int getLayoutId() {
-        return R.layout.material_preference_screen;
+        return R.layout.material_preference_screen_and_list;
     }
 
+    @Override
+    protected void onRootView(View rootView, BasePreferenceViewHolder holder) {
+        MaterialPreferenceConfig config = MaterialPreferenceConfig.getInstance();
+        int color = rootView.getResources().getColor(config.getTheme().getPrimaryColor());
+        Drawable tintDrawable = ThemeUtils.tintDrawable(rootView.getResources().getDrawable(R.drawable.chevron_right), color);
+        holder.rightIconIv.setImageDrawable(tintDrawable);
+    }
 }

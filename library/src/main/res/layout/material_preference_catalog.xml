@@ -8,15 +8,12 @@
     android:paddingBottom="0dp">
 
     <TextView
-        style="@style/PreferenceTitleTv"
+        style="@style/PreferenceCategoryTitleTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ellipsize="end"
         android:fadingEdge="horizontal"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/abc_secondary_text_material_light"
-        android:textSize="14sp"
         tools:text="Catalog" />
 
 </LinearLayout>

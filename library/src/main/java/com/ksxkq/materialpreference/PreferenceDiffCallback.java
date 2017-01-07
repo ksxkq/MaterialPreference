@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.ksxkq.materialpreference.preferences.BasePreference;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -43,11 +44,14 @@ public class PreferenceDiffCallback extends DiffUtil.Callback {
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
         BasePreference oldPreference = mOldData.get(oldItemPosition);
         BasePreference newPreference = mNewData.get(newItemPosition);
-        if (!TextUtils.equals(oldPreference.getSummary(), newPreference.getSummary())) {
-            return false;
-        }
-        if (!TextUtils.equals(oldPreference.getTitle(), newPreference.getTitle())) {
-            return false;
+        for (Field oldPreField : oldPreference.getClass().getDeclaredFields()) {
+            oldPreField.setAccessible(true);
+            for (Field newPreField : newPreference.getClass().getDeclaredFields()) {
+                // 有出现属性不等的情况，就返回 false
+                if (!TextUtils.equals(oldPreField.getName(), newPreField.getName())) {
+                    return false;
+                }
+            }
         }
         return true;
     }

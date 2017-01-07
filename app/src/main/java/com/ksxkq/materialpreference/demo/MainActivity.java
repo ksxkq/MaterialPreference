@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 //        list.add(newPreference2);
 //        list.add(newPreference3);
         BasePreference basePreference = (BasePreference) newList.remove(2);
+        basePreference.setRightSecondIconDrawable(getResources().getDrawable(R.drawable.information_outline));
         newList.add(3,basePreference);
         materialPreferenceManager.updatePreferences(newList);
     }
