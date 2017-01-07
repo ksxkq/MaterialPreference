@@ -2,11 +2,14 @@ package com.ksxkq.materialpreference;
 
 import android.content.Context;
 import android.support.annotation.ArrayRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.ksxkq.materialpreference.preferences.BasePreference;
 import com.ksxkq.materialpreference.preferences.PreferenceCatalogProvider;
 import com.ksxkq.materialpreference.preferences.PreferenceCategory;
 import com.ksxkq.materialpreference.preferences.PreferenceCheckbox;
@@ -23,7 +26,7 @@ import com.ksxkq.materialpreference.preferences.PreferenceSwitchProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.drakeet.multitype.MultiTypeAdapter;
+import me.drakeet.multitype.ItemViewProvider;
 
 /**
  * OnePiece
@@ -32,9 +35,9 @@ import me.drakeet.multitype.MultiTypeAdapter;
 
 public class MaterialPreferenceManager {
 
-    private List<Object> mMaterialPreferenceList;
+    private List<BasePreference> mMaterialPreferenceList;
     private RecyclerView mRecyclerView;
-    private MultiTypeAdapter mAdapter;
+    private DiffMultiTypeAdapter mAdapter;
     private Context mContext;
 
     public MaterialPreferenceManager(RecyclerView recyclerView) {
@@ -73,9 +76,9 @@ public class MaterialPreferenceManager {
         return this;
     }
 
-    public MaterialPreferenceManager addPreferenceSeekbar(String key, String title, int defaultValue, int min, int max) {
+    public MaterialPreferenceManager addPreferenceSeekbar(String key, String title, int defaultValue, int max) {
         int value = MaterialPreferenceConfig.getInstance().getStorageModule(mContext).getInt(key, defaultValue);
-        PreferenceSeekbar preferenceSeekbar = new PreferenceSeekbar(key, title, value, min, max);
+        PreferenceSeekbar preferenceSeekbar = new PreferenceSeekbar(key, title, value, max);
         mMaterialPreferenceList.add(preferenceSeekbar);
         return this;
     }
@@ -98,25 +101,60 @@ public class MaterialPreferenceManager {
         return this;
     }
 
+    public MaterialPreferenceManager addPreferences(List<BasePreference> materialPreferenceList) {
+        if (mAdapter != null) {
+            mAdapter.setItems(materialPreferenceList);
+        } else {
+            mMaterialPreferenceList.addAll(materialPreferenceList);
+        }
+        return this;
+    }
+
     /**
      * 在指定 BasePreference 后面添加 BasePreference
      *
-     * @param key        指定 BasePreference 的 key
-     * @param preference 添加的 BasePreference
+     * @param key           指定 BasePreference 的 key
+     * @param newPreference 待添加的 BasePreference
      * @return MaterialPreferenceManager
      */
-    public MaterialPreferenceManager addPreferenceBehind(String key, Object preference) {
+    public MaterialPreferenceManager appendPreferenceBehindKey(String key, BasePreference newPreference) {
+        int position = mMaterialPreferenceList.size();
+        for (int i = 0; i < mMaterialPreferenceList.size() - 1; i++) {
+            BasePreference preference = mMaterialPreferenceList.get(i);
+            if (TextUtils.equals(preference.getKey(), key)) {
+                position = i;
+                break;
+            }
+        }
+        mMaterialPreferenceList.add(position, newPreference);
+        mAdapter.notifyItemInserted(position);
         return this;
     }
 
     public void removePreference(String key) {
+        int position = -1;
+        for (int i = 0; i < mMaterialPreferenceList.size() - 1; i++) {
+            BasePreference preference = mMaterialPreferenceList.get(i);
+            if (TextUtils.equals(preference.getKey(), key)) {
+                position = i;
+                break;
+            }
+        }
+        if (position != -1) {
+            mMaterialPreferenceList.remove(position);
+            mAdapter.notifyItemRemoved(position);
+        }
+    }
 
+    public MaterialPreferenceManager register(@NonNull Class<?> clazz, @NonNull ItemViewProvider provider) {
+        mAdapter.register(clazz, provider);
+        return this;
     }
 
     public void apply() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mAdapter = new MultiTypeAdapter(mMaterialPreferenceList);
+        mAdapter = new DiffMultiTypeAdapter(mMaterialPreferenceList);
 
         mAdapter.register(PreferenceCategory.class, new PreferenceCatalogProvider());
         mAdapter.register(PreferenceScreen.class, new PreferenceScreenProvider());

@@ -7,23 +7,13 @@ package com.ksxkq.materialpreference.preferences;
 
 public class PreferenceSeekbar extends BasePreference {
 
-    private int min;
     private int max;
     private int value;
 
-    public PreferenceSeekbar(String key, String title, int value, int min, int max) {
+    public PreferenceSeekbar(String key, String title, int value, int max) {
         super(key, title);
         this.value = value;
-        this.min = min;
         this.max = max;
-    }
-
-    public int getMin() {
-        return min;
-    }
-
-    public void setMin(int min) {
-        this.min = min;
     }
 
     public int getMax() {
