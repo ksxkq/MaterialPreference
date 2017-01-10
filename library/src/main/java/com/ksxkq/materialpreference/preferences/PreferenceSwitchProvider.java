@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 
 import com.ksxkq.materialpreference.MaterialPreferenceConfig;
 import com.ksxkq.materialpreference.R;
+import com.ksxkq.materialpreference.StorageModule;
 
 /**
  * OnePiece
@@ -26,6 +27,8 @@ public class PreferenceSwitchProvider extends BasePreferenceProvider<PreferenceS
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 BasePreference preference = (BasePreference) root.getTag(R.id.key);
+                final StorageModule storageModule = MaterialPreferenceConfig.getInstance().getStorageModule(compoundButton.getContext());
+                storageModule.putBoolean(preference.getKey(), isChecked);
                 MaterialPreferenceConfig preferenceConfig = MaterialPreferenceConfig.getInstance();
                 preferenceConfig.onCheckedChanged(preference.getKey(), compoundButton, isChecked);
             }

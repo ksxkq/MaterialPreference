@@ -28,6 +28,7 @@ public abstract class BasePreferenceProvider<T extends BasePreference> extends I
         BasePreferenceViewHolder holder = (BasePreferenceViewHolder) h;
         BasePreference basePreference = (BasePreference) p;
         holder.titleTv.setText(basePreference.getTitle());
+        holder.itemView.setEnabled(basePreference.isEnable());
         if (holder.summaryTv != null) {
             holder.summaryTv.setText(preference.getSummary());
         }

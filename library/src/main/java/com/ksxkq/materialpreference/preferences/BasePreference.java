@@ -14,6 +14,7 @@ public class BasePreference {
     private String summary;
     private Drawable rightIconDrawable;
     private Drawable rightSecondIconDrawable;
+    private boolean enable = true;
 
     public BasePreference(String key, String title) {
         setKey(key);
@@ -58,5 +59,13 @@ public class BasePreference {
 
     public void setRightIconDrawable(Drawable rightIconDrawable) {
         this.rightIconDrawable = rightIconDrawable;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
     }
 }

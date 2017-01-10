@@ -8,8 +8,6 @@ import android.view.View;
 
 import com.ksxkq.materialpreference.utils.ArrayUtils;
 
-import java.util.Set;
-
 
 /**
  * OnePiece
@@ -51,16 +49,6 @@ public class DefaultUserInputModule implements UserInputModule {
                     }
                 })
                 .show();
-    }
-
-    @Override
-    public void showMultiChoiceInput(String key, CharSequence title, CharSequence[] displayItems, CharSequence[] values, boolean[] defaultSelection, Listener<Set<String>> listener) {
-
-    }
-
-    @Override
-    public void showColorSelectionInput(String key, CharSequence title, int defaultColor, Listener<Integer> color) {
-
     }
 
     private String[] getStrings(@ArrayRes int id) {

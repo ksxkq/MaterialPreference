@@ -109,7 +109,9 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
 
     @Override
     public void onCheckedChanged(String key, CompoundButton compoundButton, boolean isChecked) {
-
+        for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackMap.keySet()) {
+            onPreferenceCallback.onCheckedChanged(key, compoundButton, isChecked);
+        }
     }
 
     public static class Theme {

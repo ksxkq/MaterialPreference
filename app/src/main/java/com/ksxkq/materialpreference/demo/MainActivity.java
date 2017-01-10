@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CompoundButton;
 
 import com.ksxkq.materialpreference.MaterialPreferenceManager;
 import com.ksxkq.materialpreference.SimpleOnPreferenceCallback;
@@ -49,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("key", key);
                     startActivityForResult(intent, REQUEST_CODE_FOR_SUMMARY);
                 }
+            }
+
+            @Override
+            public void onCheckedChanged(String key, CompoundButton compoundButton, boolean isChecked) {
+                super.onCheckedChanged(key, compoundButton, isChecked);
             }
         };
         materialPreferenceManager.registerCallback(onPreferenceCallback);

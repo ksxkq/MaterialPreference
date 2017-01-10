@@ -30,6 +30,14 @@ public class ThemeUtils {
         }
     }
 
+    public static int getPrimaryColor(Context context) {
+        return getThemeAttrColor(context, R.attr.colorPrimary);
+    }
+
+    public static int getPrimaryDarkColor(Context context) {
+        return getThemeAttrColor(context, R.attr.colorPrimaryDark);
+    }
+
     public static void tintImageView(ImageView imageView, @ColorRes int color) {
         imageView.setColorFilter(imageView.getResources().getColor(color));
     }
