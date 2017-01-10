@@ -52,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         materialPreferenceManager.registerCallback(onPreferenceCallback);
+
+        // 自定义图标位置二
+        PreferenceScreen customSecondIconScr = new PreferenceScreen("customSecondIconScr", "customSecondIconScr");
+        final int color = getResources().getColor(R.color.material_preference_summary);
+        customSecondIconScr.setRightSecondIconDrawable(ThemeUtils.tintDrawable(this, R.drawable.information_outline, color));
+        materialPreferenceManager.addPreference(customSecondIconScr);
+
+        //自定义图标位置一
+        PreferenceScreen customRightIconScr = new PreferenceScreen("customSecondIconScr", "customSecondIconScr");
+        customRightIconScr.setRightIconDrawable(ThemeUtils.tintDrawable(this, R.drawable.information_outline, color));
+        materialPreferenceManager.addPreference(customRightIconScr);
     }
 
     @Override

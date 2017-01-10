@@ -130,6 +130,12 @@ public class MaterialPreferenceManager {
         return this;
     }
 
+    public MaterialPreferenceManager addPreference(BasePreference preference) {
+        mMaterialPreferenceList.add(preference);
+        notifyItemInserted();
+        return this;
+    }
+
     public MaterialPreferenceManager addPreferences(List<BasePreference> materialPreferenceList) {
         int positionStart = mMaterialPreferenceList.size();
         mMaterialPreferenceList.addAll(materialPreferenceList);
