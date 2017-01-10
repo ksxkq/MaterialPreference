@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         materialPreferenceManager.removePreference("newScr");
     }
 
-    private List newList = new ArrayList();
+    private List<BasePreference> newList = new ArrayList<>();
 
     public void addList(View view) {
         PreferenceScreen newPreference = new PreferenceScreen("newPreference1", "newPreference1");

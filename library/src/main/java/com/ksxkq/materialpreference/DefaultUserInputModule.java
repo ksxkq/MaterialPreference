@@ -31,7 +31,8 @@ public class DefaultUserInputModule implements UserInputModule {
 
     @Override
     public void showSingleChoiceInput(final String key, CharSequence title, @ArrayRes final int nameRes, @ArrayRes final int valuesRes, final View view) {
-        int selected = ArrayUtils.getPosition(key, getStrings(valuesRes));
+        String value = MaterialPreferenceConfig.getInstance().getStorageModule(mContext).getString(key, "");
+        int selected = ArrayUtils.getPosition(value, getStrings(valuesRes));
         new AlertDialog.Builder(mContext)
                 .setTitle(title)
                 .setSingleChoiceItems(nameRes, selected, new DialogInterface.OnClickListener() {
@@ -40,11 +41,11 @@ public class DefaultUserInputModule implements UserInputModule {
                         final String[] values = mContext.getResources().getStringArray(valuesRes);
                         final String[] names = mContext.getResources().getStringArray(nameRes);
 
-                        String selected = values[which];
+                        String selectedValue = values[which];
                         // 保存
-                        MaterialPreferenceConfig.getInstance().getStorageModule(mContext).putString(key, selected);
+                        MaterialPreferenceConfig.getInstance().getStorageModule(mContext).putString(key, selectedValue);
                         // 回调
-                        MaterialPreferenceConfig.getInstance().onSingleChoice(key, names[which], selected, view);
+                        MaterialPreferenceConfig.getInstance().onSingleChoice(key, names[which], selectedValue, view);
 
                         dialog.dismiss();
                     }
