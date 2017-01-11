@@ -22,33 +22,34 @@ public class PreferenceSwitchProvider extends BasePreferenceProvider<PreferenceS
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
         final View root = inflater.inflate(getLayoutId(), parent, false);
-        final PreferenceSwitchViewHolder viewHolder = new PreferenceSwitchViewHolder(root);
-        viewHolder.compoundButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                BasePreference preference = (BasePreference) root.getTag(R.id.key);
-                final StorageModule storageModule = MaterialPreferenceConfig.getInstance().getStorageModule(compoundButton.getContext());
-                storageModule.putBoolean(preference.getKey(), isChecked);
-                MaterialPreferenceConfig preferenceConfig = MaterialPreferenceConfig.getInstance();
-                preferenceConfig.onCheckedChanged(preference.getKey(), compoundButton, isChecked);
-            }
-        });
-        root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean isCheck = viewHolder.compoundButton.isChecked();
-                viewHolder.compoundButton.setChecked(!isCheck);
-            }
-        });
-        return viewHolder;
+        return new PreferenceSwitchViewHolder(root);
     }
 
     @Override
     protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder h, @NonNull Object p) {
         super.onBindViewHolder(h, p);
-        PreferenceSwitch preference = (PreferenceSwitch) p;
-        PreferenceSwitchViewHolder viewHolder = (PreferenceSwitchViewHolder) h;
+        final PreferenceSwitch preference = (PreferenceSwitch) p;
+        final PreferenceSwitchViewHolder viewHolder = (PreferenceSwitchViewHolder) h;
+        // 先置空回调，再设置状态，不然会多次回调
+        viewHolder.itemView.setOnClickListener(null);
+        viewHolder.compoundButton.setOnCheckedChangeListener(null);
         viewHolder.compoundButton.setChecked(preference.isChecked());
+        viewHolder.compoundButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                final StorageModule storageModule = MaterialPreferenceConfig.getInstance().getStorageModule(viewHolder.compoundButton.getContext());
+                storageModule.putBoolean(preference.getKey(), isChecked);
+                MaterialPreferenceConfig preferenceConfig = MaterialPreferenceConfig.getInstance();
+                preferenceConfig.onCheckedChanged(preference.getKey(), viewHolder.compoundButton, isChecked);
+            }
+        });
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isCheck = viewHolder.compoundButton.isChecked();
+                viewHolder.compoundButton.setChecked(!isCheck);
+            }
+        });
     }
 
     @Override
