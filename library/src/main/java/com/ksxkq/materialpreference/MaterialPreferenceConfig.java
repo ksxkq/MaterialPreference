@@ -65,11 +65,11 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
         this.mUserInputModule = userInputModule;
     }
 
-    void registerOnPreferenceCallback(OnPreferenceCallback onPreferenceCallback) {
+    public void registerOnPreferenceCallback(OnPreferenceCallback onPreferenceCallback) {
         onPreferenceCallbackMap.put(onPreferenceCallback, "");
     }
 
-    void unregisterOnPreferenceCallback(OnPreferenceCallback onPreferenceCallback) {
+    public void unregisterOnPreferenceCallback(OnPreferenceCallback onPreferenceCallback) {
         onPreferenceCallbackMap.remove(onPreferenceCallback);
     }
 
@@ -94,17 +94,23 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
 
     @Override
     public void onProgressChanged(String key, SeekBar seekBar, int progress, boolean isUser) {
-
+        for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackMap.keySet()) {
+            onPreferenceCallback.onProgressChanged(key, seekBar, progress, isUser);
+        }
     }
 
     @Override
     public void onStartTrackingTouch(String key, SeekBar seekBar) {
-
+        for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackMap.keySet()) {
+            onPreferenceCallback.onStartTrackingTouch(key, seekBar);
+        }
     }
 
     @Override
     public void onStopTrackingTouch(String key, SeekBar seekBar) {
-
+        for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackMap.keySet()) {
+            onPreferenceCallback.onStopTrackingTouch(key, seekBar);
+        }
     }
 
     @Override

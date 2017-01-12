@@ -23,40 +23,38 @@ public class PreferenceSeekbarProvider extends BasePreferenceProvider<Preference
     protected RecyclerView.ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
         // 注意：preference 是在 onBindViewHolder 的时候才赋值
         final View root = inflater.inflate(getLayoutId(), parent, false);
-        final PreferenceSeekbarViewHolder viewHolder = new PreferenceSeekbarViewHolder(root);
+        return new PreferenceSeekbarViewHolder(root);
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder h, @NonNull final Object p) {
+        super.onBindViewHolder(h, p);
+        final PreferenceSeekbarViewHolder viewHolder = (PreferenceSeekbarViewHolder) h;
+        final PreferenceSeekbar preference = (PreferenceSeekbar) p;
+        viewHolder.seekBar.setOnSeekBarChangeListener(null);
+        viewHolder.seekBar.setMax(preference.getMax());
+        viewHolder.seekBar.setProgress(preference.getValue());
+        viewHolder.valueTv.setText(String.valueOf(preference.getValue()));
         final MaterialPreferenceConfig preferenceConfig = com.ksxkq.materialpreference.MaterialPreferenceConfig.getInstance();
         viewHolder.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean isUser) {
-                BasePreference preference = (BasePreference) root.getTag(R.id.key);
+                preference.setValue(progress);
                 preferenceConfig.onProgressChanged(preference.getKey(), seekBar, progress, isUser);
                 viewHolder.valueTv.setText(String.valueOf(progress));
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                BasePreference preference = (BasePreference) root.getTag(R.id.key);
                 preferenceConfig.onStartTrackingTouch(preference.getKey(), seekBar);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                BasePreference preference = (BasePreference) root.getTag(R.id.key);
                 preferenceConfig.getStorageModule(seekBar.getContext()).putInt(preference.getKey(), seekBar.getProgress());
                 preferenceConfig.onStopTrackingTouch(preference.getKey(), seekBar);
             }
         });
-        return viewHolder;
-    }
-
-    @Override
-    protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder h, @NonNull Object p) {
-        super.onBindViewHolder(h, p);
-        PreferenceSeekbarViewHolder viewHolder = (PreferenceSeekbarViewHolder) h;
-        PreferenceSeekbar preference = (PreferenceSeekbar) p;
-        viewHolder.seekBar.setMax(preference.getMax());
-        viewHolder.seekBar.setProgress(preference.getValue());
-        viewHolder.valueTv.setText(String.valueOf(preference.getValue()));
     }
 
     @Override
