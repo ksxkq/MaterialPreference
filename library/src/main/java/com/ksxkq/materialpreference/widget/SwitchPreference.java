@@ -42,7 +42,7 @@ public class SwitchPreference extends BasePreference {
 
     @Override
     protected void setListeners() {
-        root.setOnClickListener(new OnClickListener() {
+        setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 switchCompat.setChecked(!switchCompat.isChecked());

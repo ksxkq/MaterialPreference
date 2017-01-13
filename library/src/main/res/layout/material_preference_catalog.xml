@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    style="@style/PreferenceBg"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@color/material_preference_catalog_background"
-    android:paddingBottom="0dp">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         style="@style/PreferenceCategoryTitleTv"
@@ -17,4 +11,4 @@
         android:fadingEdge="horizontal"
         tools:text="Catalog" />
 
-</LinearLayout>
+</merge>

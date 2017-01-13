@@ -32,7 +32,7 @@ public class ListPreference extends ScreenPreference {
 
     @Override
     protected void setListeners() {
-        root.setOnClickListener(new OnClickListener() {
+        setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 userInputModule.showSingleChoiceInput(key, getTitle(), mItemNamesRes, mItemValuesRes, v);
