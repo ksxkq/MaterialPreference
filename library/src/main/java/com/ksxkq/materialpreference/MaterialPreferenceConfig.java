@@ -6,7 +6,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 
-import java.util.WeakHashMap;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * OnePiece
@@ -16,13 +17,13 @@ import java.util.WeakHashMap;
 public class MaterialPreferenceConfig implements OnPreferenceCallback {
 
     private static MaterialPreferenceConfig instance;
-    private WeakHashMap<OnPreferenceCallback, Object> onPreferenceCallbackMap;
+    private Map<OnPreferenceCallback, Object> onPreferenceCallbackMap;
     private StorageModule mStorageModule;
     private UserInputModule mUserInputModule;
     private Theme mTheme;
 
     private MaterialPreferenceConfig() {
-        onPreferenceCallbackMap = new WeakHashMap<>();
+        onPreferenceCallbackMap = new HashMap<>();
     }
 
     public static MaterialPreferenceConfig getInstance() {
