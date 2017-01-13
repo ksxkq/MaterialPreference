@@ -1,6 +1,7 @@
 package com.ksxkq.materialpreference.widget;
 
 import android.content.Context;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -15,9 +16,13 @@ public class SwitchPreference extends BasePreference {
     private SwitchCompat switchCompat;
     private boolean defaultValue;
 
-    public SwitchPreference(Context context, String key, boolean defaultValue) {
-        super(context, key);
+    public SwitchPreference(Context context, String key, String title, boolean defaultValue) {
+        super(context, key, title);
         this.defaultValue = defaultValue;
+    }
+
+    public SwitchPreference(Context context, String key, @StringRes int titleRes, boolean defaultValue) {
+        this(context, key, context.getResources().getString(titleRes), defaultValue);
     }
 
     @Override

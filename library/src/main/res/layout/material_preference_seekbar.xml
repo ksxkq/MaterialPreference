@@ -34,7 +34,7 @@
             android:paddingLeft="0dp" />
 
         <TextView
-            android:id="@+id/value_tv"
+            android:id="@id/value_tv"
             android:layout_width="24dp"
             android:gravity="center"
             android:layout_height="wrap_content"

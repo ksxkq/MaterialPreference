@@ -1,6 +1,7 @@
 package com.ksxkq.materialpreference.widget;
 
 import android.content.Context;
+import android.support.annotation.StringRes;
 
 import com.ksxkq.materialpreference.R;
 
@@ -10,8 +11,12 @@ import com.ksxkq.materialpreference.R;
 public class CatalogPreference extends BasePreference {
 
 
-    public CatalogPreference(Context context, String key) {
-        super(context, key);
+    public CatalogPreference(Context context, String key, String title) {
+        super(context, key, title);
+    }
+
+    public CatalogPreference(Context context, String key, @StringRes int titleRes) {
+        this(context, key, context.getResources().getString(titleRes));
     }
 
     @Override

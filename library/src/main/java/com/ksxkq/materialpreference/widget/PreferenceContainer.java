@@ -53,8 +53,7 @@ public class PreferenceContainer extends LinearLayout {
     }
 
     public PreferenceContainer addCatalogPreference(String key, String title) {
-        CatalogPreference catalogPreference = new CatalogPreference(getContext(), key);
-        catalogPreference.setTitle(title);
+        CatalogPreference catalogPreference = new CatalogPreference(getContext(), key, title);
         addView(catalogPreference);
         return this;
     }
@@ -65,34 +64,16 @@ public class PreferenceContainer extends LinearLayout {
     }
 
     public PreferenceContainer addSwitchPreference(String key, String title, boolean defaultValue) {
-        SwitchPreference switchPreference = new SwitchPreference(getContext(), key, defaultValue);
-        switchPreference.setTitle(title);
+        SwitchPreference switchPreference = new SwitchPreference(getContext(), key, title, defaultValue);
         addView(switchPreference);
         mPreferenceMap.put(key, switchPreference);
         return this;
     }
 
     public PreferenceContainer addCheckBoxPreference(String key, @StringRes int titleRes, boolean defaultValue) {
-        CheckBoxPreference checkBoxPreference = new CheckBoxPreference(getContext(), key, defaultValue);
-        checkBoxPreference.setTitle(titleRes);
+        CheckBoxPreference checkBoxPreference = new CheckBoxPreference(getContext(), key, titleRes, defaultValue);
         addView(checkBoxPreference);
         mPreferenceMap.put(key, checkBoxPreference);
-        return this;
-    }
-
-    public PreferenceContainer addSeekbarPreference(String key, @StringRes int titleRes) {
-        SeekbarPreference seekbarPreference = new SeekbarPreference(getContext(), key);
-        seekbarPreference.setTitle(titleRes);
-        addView(seekbarPreference);
-        mPreferenceMap.put(key, seekbarPreference);
-        return this;
-    }
-
-    public PreferenceContainer addSeekbarPreference(String key, @StringRes int titleRes, int max) {
-        SeekbarPreference seekbarPreference = new SeekbarPreference(getContext(), key, max);
-        seekbarPreference.setTitle(titleRes);
-        addView(seekbarPreference);
-        mPreferenceMap.put(key, seekbarPreference);
         return this;
     }
 
@@ -102,16 +83,14 @@ public class PreferenceContainer extends LinearLayout {
     }
 
     public PreferenceContainer addSeekbarPreference(String key, String title, int defaultValue, int max) {
-        SeekbarPreference seekbarPreference = new SeekbarPreference(getContext(), key, defaultValue, max);
-        seekbarPreference.setTitle(title);
+        SeekbarPreference seekbarPreference = new SeekbarPreference(getContext(), key, title, defaultValue, max);
         addView(seekbarPreference);
         mPreferenceMap.put(key, seekbarPreference);
         return this;
     }
 
     public PreferenceContainer addListPreference(String key, @StringRes int titleRes, @ArrayRes int itemNames, @ArrayRes int itemValues) {
-        ListPreference listPreference = new ListPreference(getContext(), key, itemNames, itemValues);
-        listPreference.setTitle(titleRes);
+        ListPreference listPreference = new ListPreference(getContext(), key, titleRes, itemNames, itemValues);
         addView(listPreference);
         mPreferenceMap.put(key, listPreference);
         return this;
@@ -130,8 +109,7 @@ public class PreferenceContainer extends LinearLayout {
     }
 
     public PreferenceContainer addScreenPreference(String key, String title) {
-        ScreenPreference screenPreference = new ScreenPreference(getContext(), key);
-        screenPreference.setTitle(title);
+        ScreenPreference screenPreference = new ScreenPreference(getContext(), key, title);
         addView(screenPreference);
         mPreferenceMap.put(key, screenPreference);
         return this;

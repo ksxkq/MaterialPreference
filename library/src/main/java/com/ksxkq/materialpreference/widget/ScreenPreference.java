@@ -19,14 +19,23 @@ import com.ksxkq.materialpreference.utils.ThemeUtils;
  */
 public class ScreenPreference extends BasePreference {
 
+    private static final String SUMMARY = "_summary";
+
     private TextView summaryTv;
     protected ImageView rightIcon;
     protected ImageView rightSecondIcon;
     private ImageView mLeftIconIv;
 
 
-    public ScreenPreference(Context context, String key) {
-        super(context, key);
+    public ScreenPreference(Context context, String key, String title) {
+        super(context, key, title);
+        rightIcon.setColorFilter(ThemeUtils.getPrimaryColor(getContext()));
+        String summary = dao.getString(key + SUMMARY, "");
+        summaryTv.setText(summary);
+    }
+
+    public ScreenPreference(Context context, String key, @StringRes int titleRes) {
+        this(context, key, context.getResources().getString(titleRes));
     }
 
     @Override
@@ -52,13 +61,9 @@ public class ScreenPreference extends BasePreference {
         });
     }
 
-    @Override
-    protected void logic() {
-        rightIcon.setColorFilter(ThemeUtils.getPrimaryColor(getContext()));
-    }
-
     public void setSummary(String summary) {
         summaryTv.setText(summary);
+        dao.putString(key + SUMMARY, summary);
     }
 
     public void setSummary(@StringRes int summaryRes) {

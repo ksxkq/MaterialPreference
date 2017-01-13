@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 
 import com.ksxkq.materialpreference.R;
 
@@ -16,14 +15,22 @@ public class CheckBoxPreference extends BasePreference {
     private CheckBox checkBox;
     private boolean defaultValue = false;
 
-    public CheckBoxPreference(Context context, String key) {
-        super(context, key);
+    public CheckBoxPreference(Context context, String key, String title) {
+        super(context, key, title);
     }
 
-    public CheckBoxPreference(Context context, String key, boolean defaultValue) {
-        super(context, key);
+    public CheckBoxPreference(Context context, String key, @StringRes int titleRes) {
+        this(context, key, context.getResources().getString(titleRes));
+    }
+
+    public CheckBoxPreference(Context context, String key, String title, boolean defaultValue) {
+        super(context, key, title);
         this.defaultValue = defaultValue;
         checkBox.setChecked(dao.getBoolean(key, defaultValue));
+    }
+
+    public CheckBoxPreference(Context context, String key, @StringRes int titleRes, boolean defaultValue) {
+        this(context, key, context.getResources().getString(titleRes), defaultValue);
     }
 
     @Override

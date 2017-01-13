@@ -22,8 +22,6 @@ import com.ksxkq.materialpreference.UserInputModule;
  */
 public abstract class BasePreference extends FrameLayout {
 
-    public static final String SUMMARY = "_summary";
-
     protected TextView titleTv;
     protected View root;
     protected String key;
@@ -32,11 +30,13 @@ public abstract class BasePreference extends FrameLayout {
     private Context context;
     protected OnPreferenceCallback onPreferenceCallback;
 
-    public BasePreference(Context context, String key) {
+    public BasePreference(Context context, String key, String title) {
         super(context);
         this.context = context;
         this.key = key;
         init();
+
+        setTitle(title);
     }
 
     public String getKey() {

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="title_tv" type="id" />
+    <item name="value_tv" type="id" />
     <item name="summary_tv" type="id" />
     <item name="right_icon_iv" type="id" />
     <item name="right_second_icon_iv" type="id" />
     <item name="help_iv" type="id" />
     <item name="root" type="id" />
+    <item name="preference_container" type="id" />
 
     <item name="space" type="id" />
     <item name="key" type="id" />
