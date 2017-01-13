@@ -7,6 +7,8 @@ import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
+import com.ksxkq.materialpreference.MaterialPreferenceConfig;
+import com.ksxkq.materialpreference.OnPreferenceCallback;
 import com.ksxkq.materialpreference.R;
 
 import java.util.HashMap;
@@ -186,4 +188,11 @@ public class PreferenceContainer extends LinearLayout {
         return getResources().getString(id);
     }
 
+    public void registerCallback(OnPreferenceCallback onPreferenceCallback) {
+        MaterialPreferenceConfig.getInstance().registerOnPreferenceCallback(onPreferenceCallback);
+    }
+
+    public void unregisterCallback(OnPreferenceCallback onPreferenceCallback) {
+        MaterialPreferenceConfig.getInstance().unregisterOnPreferenceCallback(onPreferenceCallback);
+    }
 }
