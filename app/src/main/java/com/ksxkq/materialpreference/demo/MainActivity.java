@@ -4,16 +4,14 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.CompoundButton;
 
 import com.ksxkq.materialpreference.MaterialPreferenceManager;
 import com.ksxkq.materialpreference.SimpleOnPreferenceCallback;
 import com.ksxkq.materialpreference.preferences.BasePreference;
 import com.ksxkq.materialpreference.preferences.PreferenceScreen;
 import com.ksxkq.materialpreference.utils.ThemeUtils;
+import com.ksxkq.materialpreference.widget.PreferenceContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,52 +27,66 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv);
+        PreferenceContainer container = (PreferenceContainer) findViewById(R.id.container);
+        container
+                .addCatalogPreference("", "开关")
+                .addSwitchPreference("switch", "开关", true)
+                .addCatalogPreference("", "外观")
+                .addScreenPreference("aa", "图标")
+                .addSeekbarPreference("bb", "大小", 0, 100)
+                .addSeekbarPreference("cc", "透明度", 0, 100)
+                .addCatalogPreference("", "其它设置")
+                .addScreenPreference("a1a", "消息提示")
+                .addScreenPreference("a2a", "编辑菜单")
+                .addScreenPreference("a3a", "更多设置");
 
-        materialPreferenceManager = new MaterialPreferenceManager(recyclerView);
-        materialPreferenceManager
-                .addPreferenceCategory("setting_category", "设置")
-                .addPreferenceScreen("setting", "应用设置")
-                .addPreferenceScreen("sc1", "其它设置")
-                .addPreferenceSeekbar("sb1", "亮度设置", 0, 100)
-                .addPreferenceCheckbox("cb1", "CheckBox", true)
-                .addPreferenceSwitch("sw1", "开关", true)
-                .addPreferenceList("list1", "列表", R.array.sensitivity_names, R.array.sensitivity_values)
-                .apply();
 
-        onPreferenceCallback = new SimpleOnPreferenceCallback() {
-            @Override
-            public void onPreferenceClick(String key, View view) {
-                if (TextUtils.equals("setting", key)) {
-                    Intent intent = new Intent(MainActivity.this, ActivitySetting.class);
-                    intent.putExtra("key", key);
-                    startActivityForResult(intent, REQUEST_CODE_FOR_SUMMARY);
-                }
-            }
-
-            @Override
-            public void onCheckedChanged(String key, CompoundButton compoundButton, boolean isChecked) {
-                super.onCheckedChanged(key, compoundButton, isChecked);
-            }
-        };
-        materialPreferenceManager.registerCallback(onPreferenceCallback);
-
-        // 自定义图标位置二
-        PreferenceScreen customSecondIconScr = new PreferenceScreen("customSecondIconScr", "customSecondIconScr");
-        final int color = getResources().getColor(R.color.material_preference_summary);
-        customSecondIconScr.setRightSecondIconDrawable(ThemeUtils.tintDrawable(this, R.drawable.information_outline, color));
-        materialPreferenceManager.addPreference(customSecondIconScr);
-
-        //自定义图标位置一
-        PreferenceScreen customRightIconScr = new PreferenceScreen("customSecondIconScr", "customSecondIconScr");
-        customRightIconScr.setRightIconDrawable(ThemeUtils.tintDrawable(this, R.drawable.information_outline, color));
-        materialPreferenceManager.addPreference(customRightIconScr);
+//        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv);
+//
+//        materialPreferenceManager = new MaterialPreferenceManager(recyclerView);
+//        materialPreferenceManager
+//                .addPreferenceCategory("setting_category", "设置")
+//                .addPreferenceScreen("setting", "应用设置")
+//                .addPreferenceScreen("sc1", "其它设置")
+//                .addPreferenceSeekbar("sb1", "亮度设置", 0, 100)
+//                .addPreferenceCheckbox("cb1", "CheckBox", true)
+//                .addPreferenceSwitch("sw1", "开关", true)
+//                .addPreferenceList("list1", "列表", R.array.sensitivity_names, R.array.sensitivity_values)
+//                .apply();
+//
+//        onPreferenceCallback = new SimpleOnPreferenceCallback() {
+//            @Override
+//            public void onPreferenceClick(String key, View view) {
+//                if (TextUtils.equals("setting", key)) {
+//                    Intent intent = new Intent(MainActivity.this, ActivitySetting.class);
+//                    intent.putExtra("key", key);
+//                    startActivityForResult(intent, REQUEST_CODE_FOR_SUMMARY);
+//                }
+//            }
+//
+//            @Override
+//            public void onCheckedChanged(String key, CompoundButton compoundButton, boolean isChecked) {
+//                super.onCheckedChanged(key, compoundButton, isChecked);
+//            }
+//        };
+//        materialPreferenceManager.registerCallback(onPreferenceCallback);
+//
+//        // 自定义图标位置二
+//        PreferenceScreen customSecondIconScr = new PreferenceScreen("customSecondIconScr", "customSecondIconScr");
+//        final int color = getResources().getColor(R.color.material_preference_summary);
+//        customSecondIconScr.setRightSecondIconDrawable(ThemeUtils.tintDrawable(this, R.drawable.information_outline, color));
+//        materialPreferenceManager.addPreference(customSecondIconScr);
+//
+//        //自定义图标位置一
+//        PreferenceScreen customRightIconScr = new PreferenceScreen("customSecondIconScr", "customSecondIconScr");
+//        customRightIconScr.setRightIconDrawable(ThemeUtils.tintDrawable(this, R.drawable.information_outline, color));
+//        materialPreferenceManager.addPreference(customRightIconScr);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        materialPreferenceManager.unregisterCallback(onPreferenceCallback);
+//        materialPreferenceManager.unregisterCallback(onPreferenceCallback);
     }
 
     @Override
