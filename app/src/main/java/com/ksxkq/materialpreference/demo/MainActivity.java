@@ -25,13 +25,13 @@ public class MainActivity extends AppCompatActivity {
 
         container = (PreferenceContainer) findViewById(R.id.container);
         container
-                .addCatalogPreference("", "开关")
+                .addCategoryPreference("", "开关")
                 .addSwitchPreference("switch", "开关", true)
-                .addCatalogPreference("", "外观")
+                .addCategoryPreference("", "外观")
                 .addScreenPreference("aa", "图标")
                 .addSeekbarPreference("bb", "大小", 0, 100)
                 .addSeekbarPreference("cc", "透明度", 0, 100)
-                .addCatalogPreference("", "其它设置")
+                .addCategoryPreference("", "其它设置")
                 .addScreenPreference("a1a", "消息提示")
                 .addScreenPreference("a2a", "编辑菜单")
                 .addScreenPreference("setting", "更多设置");

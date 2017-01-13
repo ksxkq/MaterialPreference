@@ -6,26 +6,28 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.ksxkq.materialpreference.MaterialPreferenceConfig;
 import com.ksxkq.materialpreference.OnPreferenceCallback;
 import com.ksxkq.materialpreference.R;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by xukq on 1/17/16.
  */
-public class PreferenceContainer extends LinearLayout {
+public class PreferenceContainer extends ScrollView {
 
     private Map<String, BasePreference> mPreferenceMap = new HashMap<>();
+    private LinearLayout mContainer;
     private String mContainerKey;
 
     public PreferenceContainer(Context context) {
         super(context);
-        setOrientation(VERTICAL);
-        setBackgroundResource(R.color.material_preference_catalog_background);
+        init(context);
     }
 
     public PreferenceContainer(Context context, String containerKey) {
@@ -35,26 +37,50 @@ public class PreferenceContainer extends LinearLayout {
 
     public PreferenceContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setOrientation(VERTICAL);
+        init(context);
     }
 
     public PreferenceContainer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setOrientation(VERTICAL);
+        init(context);
+    }
+
+    private void init(Context context) {
+        mContainer = (LinearLayout) inflate(context, R.layout.preference_container_ll, null);
+        addView(mContainer);
+        setBackgroundResource(R.color.bg_activity);
     }
 
     public PreferenceContainer addPreference(BasePreference preference) {
+        mContainer.addView(preference);
         return this;
     }
 
-    public PreferenceContainer addCatalogPreference(String key, @StringRes int titleRes) {
-        addCatalogPreference(key, getStr(titleRes));
+    public void removePreference(BasePreference preference) {
+        removeView(preference);
+    }
+
+    public void removePreference(String key) {
+        BasePreference preference = mPreferenceMap.get(key);
+        removePreference(preference);
+    }
+
+    public PreferenceContainer addPreferences(List<BasePreference> preferences) {
+        for (int i = 0; i < preferences.size(); i++) {
+            BasePreference preference = preferences.get(i);
+            mContainer.addView(preference);
+        }
         return this;
     }
 
-    public PreferenceContainer addCatalogPreference(String key, String title) {
-        CatalogPreference catalogPreference = new CatalogPreference(getContext(), key, title);
-        addView(catalogPreference);
+    public PreferenceContainer addCategoryPreference(String key, @StringRes int titleRes) {
+        addCategoryPreference(key, getStr(titleRes));
+        return this;
+    }
+
+    public PreferenceContainer addCategoryPreference(String key, String title) {
+        CategoryPreference categoryPreference = new CategoryPreference(getContext(), key, title);
+        mContainer.addView(categoryPreference);
         return this;
     }
 
@@ -65,14 +91,14 @@ public class PreferenceContainer extends LinearLayout {
 
     public PreferenceContainer addSwitchPreference(String key, String title, boolean defaultValue) {
         SwitchPreference switchPreference = new SwitchPreference(getContext(), key, title, defaultValue);
-        addView(switchPreference);
+        mContainer.addView(switchPreference);
         mPreferenceMap.put(key, switchPreference);
         return this;
     }
 
     public PreferenceContainer addCheckBoxPreference(String key, @StringRes int titleRes, boolean defaultValue) {
         CheckBoxPreference checkBoxPreference = new CheckBoxPreference(getContext(), key, titleRes, defaultValue);
-        addView(checkBoxPreference);
+        mContainer.addView(checkBoxPreference);
         mPreferenceMap.put(key, checkBoxPreference);
         return this;
     }
@@ -84,14 +110,14 @@ public class PreferenceContainer extends LinearLayout {
 
     public PreferenceContainer addSeekbarPreference(String key, String title, int defaultValue, int max) {
         SeekbarPreference seekbarPreference = new SeekbarPreference(getContext(), key, title, defaultValue, max);
-        addView(seekbarPreference);
+        mContainer.addView(seekbarPreference);
         mPreferenceMap.put(key, seekbarPreference);
         return this;
     }
 
     public PreferenceContainer addListPreference(String key, @StringRes int titleRes, @ArrayRes int itemNames, @ArrayRes int itemValues) {
         ListPreference listPreference = new ListPreference(getContext(), key, titleRes, itemNames, itemValues);
-        addView(listPreference);
+        mContainer.addView(listPreference);
         mPreferenceMap.put(key, listPreference);
         return this;
     }
@@ -110,7 +136,7 @@ public class PreferenceContainer extends LinearLayout {
 
     public PreferenceContainer addScreenPreference(String key, String title) {
         ScreenPreference screenPreference = new ScreenPreference(getContext(), key, title);
-        addView(screenPreference);
+        mContainer.addView(screenPreference);
         mPreferenceMap.put(key, screenPreference);
         return this;
     }
@@ -126,7 +152,7 @@ public class PreferenceContainer extends LinearLayout {
 //        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
 //        params.leftMargin = Utils.dip2px(getContext(), 8);
 //        params.rightMargin = Utils.dip2px(getContext(), 8);
-//        addView(line, params);
+//        mContainer.addView(line, params);
 //        return this;
 //    }
 

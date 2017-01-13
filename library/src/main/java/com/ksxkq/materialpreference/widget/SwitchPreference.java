@@ -2,7 +2,6 @@ package com.ksxkq.materialpreference.widget;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
-import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -13,7 +12,7 @@ import com.ksxkq.materialpreference.R;
  */
 public class SwitchPreference extends BasePreference {
 
-    private SwitchCompat switchCompat;
+    private CompoundButton switchCompat;
     private boolean defaultValue;
 
     public SwitchPreference(Context context, String key, String title, boolean defaultValue) {
@@ -32,7 +31,7 @@ public class SwitchPreference extends BasePreference {
 
     @Override
     protected void findView() {
-        switchCompat = (SwitchCompat) findViewById(R.id.compoundbutton_cb);
+        switchCompat = (CompoundButton) findViewById(R.id.compoundbutton_cb);
     }
 
     @Override
@@ -52,6 +51,7 @@ public class SwitchPreference extends BasePreference {
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dao.putBoolean(key,isChecked);
                 onPreferenceCallback.onCheckedChanged(key, buttonView, isChecked);
             }
         });
