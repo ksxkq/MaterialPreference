@@ -53,11 +53,13 @@ public class PreferenceContainer extends ScrollView {
 
     public PreferenceContainer addPreference(BasePreference preference) {
         mContainer.addView(preference);
+        mPreferenceMap.put(preference.key, preference);
         return this;
     }
 
     public void removePreference(BasePreference preference) {
         removeView(preference);
+        mPreferenceMap.remove(preference.key);
     }
 
     public void removePreference(String key) {
@@ -69,6 +71,7 @@ public class PreferenceContainer extends ScrollView {
         for (int i = 0; i < preferences.size(); i++) {
             BasePreference preference = preferences.get(i);
             mContainer.addView(preference);
+            mPreferenceMap.put(preference.key, preference);
         }
         return this;
     }

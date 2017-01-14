@@ -67,11 +67,6 @@ public class SeekbarPreference extends BasePreference {
         });
     }
 
-    @Override
-    protected void logic() {
-
-    }
-
     public void setMax(int max) {
         mSeekBar.setMax(max);
     }

@@ -18,6 +18,8 @@ public class SwitchPreference extends BasePreference {
     public SwitchPreference(Context context, String key, String title, boolean defaultValue) {
         super(context, key, title);
         this.defaultValue = defaultValue;
+        boolean value = dao.getBoolean(key, defaultValue);
+        switchCompat.setChecked(value);
     }
 
     public SwitchPreference(Context context, String key, @StringRes int titleRes, boolean defaultValue) {
@@ -32,12 +34,6 @@ public class SwitchPreference extends BasePreference {
     @Override
     protected void findView() {
         switchCompat = (CompoundButton) findViewById(R.id.compoundbutton_cb);
-    }
-
-    @Override
-    protected void logic() {
-        boolean value = dao.getBoolean(key, defaultValue);
-        switchCompat.setChecked(value);
     }
 
     @Override
