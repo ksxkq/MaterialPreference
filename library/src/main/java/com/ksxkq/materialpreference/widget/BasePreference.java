@@ -25,7 +25,7 @@ import com.ksxkq.materialpreference.utils.Utils;
  */
 public abstract class BasePreference extends LinearLayout {
 
-    protected TextView titleTv;
+    public TextView titleTv;
     protected View root;
     protected String key;
     protected StorageModule dao;

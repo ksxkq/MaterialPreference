@@ -4,6 +4,8 @@
     <color name="material_primary_dark_color">#0288D1</color>
     <color name="material_accent_color">#FF4081</color>
 
+    <color name="material_disable_color">#80ffffff</color>
+
     <color name="bg_activity">#f6f7f9</color>
 
     <color name="material_preference_catalog_title">#929292</color>

@@ -21,10 +21,10 @@ public class ScreenPreference extends BasePreference {
 
     private static final String SUMMARY = "_summary";
 
-    private TextView summaryTv;
-    protected ImageView rightIcon;
-    protected ImageView rightSecondIcon;
-    private ImageView mLeftIconIv;
+    public TextView summaryTv;
+    public ImageView rightIcon;
+    public ImageView rightSecondIcon;
+    public ImageView leftIconIv;
 
 
     public ScreenPreference(Context context, String key, String title) {
@@ -48,7 +48,7 @@ public class ScreenPreference extends BasePreference {
         summaryTv = (TextView) findViewById(R.id.summary_tv);
         rightIcon = (ImageView) findViewById(R.id.right_icon_iv);
         rightSecondIcon = (ImageView) findViewById(R.id.right_second_icon_iv);
-        mLeftIconIv = (ImageView) findViewById(R.id.leftIconIv);
+        leftIconIv = (ImageView) findViewById(R.id.leftIconIv);
     }
 
     @Override
@@ -93,13 +93,13 @@ public class ScreenPreference extends BasePreference {
     }
 
     public void setLeftIcon(@DrawableRes int leftIconRes) {
-        mLeftIconIv.setImageResource(leftIconRes);
-        mLeftIconIv.setColorFilter(ThemeUtils.getPrimaryColor(getContext()));
-        mLeftIconIv.setVisibility(VISIBLE);
+        leftIconIv.setImageResource(leftIconRes);
+        leftIconIv.setColorFilter(ThemeUtils.getPrimaryColor(getContext()));
+        leftIconIv.setVisibility(VISIBLE);
     }
 
     public void setLeftIconVisibility(int visibility) {
-        mLeftIconIv.setVisibility(visibility);
+        leftIconIv.setVisibility(visibility);
     }
 
     public void setRightSecondIcon(Bitmap icon) {
