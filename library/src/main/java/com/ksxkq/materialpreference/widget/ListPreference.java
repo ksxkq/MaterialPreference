@@ -6,6 +6,7 @@ import android.support.annotation.StringRes;
 import android.view.View;
 
 import com.ksxkq.materialpreference.R;
+import com.ksxkq.materialpreference.utils.ArrayUtils;
 
 /**
  * OnePiece
@@ -21,9 +22,14 @@ public class ListPreference extends ScreenPreference {
         mItemNamesRes = itemNames;
         mItemValuesRes = itemValues;
 
-        String summary = dao.getString(key, "");
-        setSummary(summary);
+        updateSummary(key, itemNames, itemValues);
         rightIcon.setImageResource(R.drawable.chevron_down);
+    }
+
+    private void updateSummary(String key, @ArrayRes int itemNames, @ArrayRes int itemValues) {
+        String value = dao.getString(key, "");
+        String summary = ArrayUtils.getName(value, itemNames, itemValues, getResources());
+        setSummary(summary);
     }
 
     public ListPreference(Context context, String key, @StringRes int titleRes, @ArrayRes int itemNames, @ArrayRes int itemValues) {
@@ -35,9 +41,19 @@ public class ListPreference extends ScreenPreference {
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                userInputModule.showSingleChoiceInput(key, getTitle(), mItemNamesRes, mItemValuesRes, v);
+                userInputModule.showSingleChoiceInput(getContext(), key, getTitle(), mItemNamesRes, mItemValuesRes, v, new OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        updateSummary(key, mItemNamesRes, mItemValuesRes);
+                    }
+                });
             }
         });
     }
+
+    public interface OnDismissListener {
+        void onDismiss();
+    }
+
 
 }

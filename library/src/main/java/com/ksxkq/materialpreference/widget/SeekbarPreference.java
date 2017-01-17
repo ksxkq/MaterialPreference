@@ -20,7 +20,7 @@ public class SeekbarPreference extends BasePreference {
     private TextView mValueTv;
     private int defaultValue;
 
-    public SeekbarPreference(Context context, String key, String title, int defaultValue, int max) {
+    public SeekbarPreference(Context context, final String key, String title, int defaultValue, int max) {
         super(context, key, title);
         this.defaultValue = defaultValue;
         if (max == 0) max = MAX;
@@ -28,25 +28,7 @@ public class SeekbarPreference extends BasePreference {
         int progress = dao.getInt(key, defaultValue);
         mSeekBar.setProgress(progress);
         mValueTv.setText(String.valueOf(progress));
-    }
 
-    public SeekbarPreference(Context context, String key, @StringRes int titleRes, int defaultValue, int max) {
-        this(context, key, context.getResources().getString(titleRes), defaultValue, max);
-    }
-
-    @Override
-    int getLayout() {
-        return R.layout.material_preference_seekbar;
-    }
-
-    @Override
-    protected void findView() {
-        mSeekBar = (SeekBar) findViewById(R.id.seekbar_sb);
-        mValueTv = (TextView) findViewById(value_tv);
-    }
-
-    @Override
-    protected void setListeners() {
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -65,6 +47,26 @@ public class SeekbarPreference extends BasePreference {
                 dao.putInt(key, seekBar.getProgress());
             }
         });
+    }
+
+    public SeekbarPreference(Context context, String key, @StringRes int titleRes, int defaultValue, int max) {
+        this(context, key, context.getResources().getString(titleRes), defaultValue, max);
+    }
+
+    @Override
+    protected void logic() {
+        setClickable(false);
+    }
+
+    @Override
+    int getLayout() {
+        return R.layout.material_preference_seekbar;
+    }
+
+    @Override
+    protected void findView() {
+        mSeekBar = (SeekBar) findViewById(R.id.seekbar_sb);
+        mValueTv = (TextView) findViewById(value_tv);
     }
 
     public void setMax(int max) {

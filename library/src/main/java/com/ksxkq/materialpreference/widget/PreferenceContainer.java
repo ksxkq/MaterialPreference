@@ -58,8 +58,17 @@ public class PreferenceContainer extends ScrollView {
     }
 
     public void removePreference(BasePreference preference) {
-        removeView(preference);
-        mPreferenceMap.remove(preference.key);
+        if (preference != null) {
+            mContainer.removeView(preference);
+            mPreferenceMap.remove(preference.key);
+        }
+    }
+
+    public void removePreferences(List<BasePreference> preferences) {
+        for (int i = 0; i < preferences.size(); i++) {
+            BasePreference preference = preferences.get(i);
+            removePreference(preference);
+        }
     }
 
     public void removePreference(String key) {

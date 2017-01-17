@@ -13,13 +13,25 @@ import com.ksxkq.materialpreference.R;
 public class SwitchPreference extends BasePreference {
 
     private CompoundButton switchCompat;
-    private boolean defaultValue;
 
-    public SwitchPreference(Context context, String key, String title, boolean defaultValue) {
+    public SwitchPreference(Context context, final String key, String title, boolean defaultValue) {
         super(context, key, title);
-        this.defaultValue = defaultValue;
         boolean value = dao.getBoolean(key, defaultValue);
         switchCompat.setChecked(value);
+
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchCompat.setChecked(!switchCompat.isChecked());
+            }
+        });
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dao.putBoolean(key, isChecked);
+                onPreferenceCallback.onCheckedChanged(key, buttonView, isChecked);
+            }
+        });
     }
 
     public SwitchPreference(Context context, String key, @StringRes int titleRes, boolean defaultValue) {
@@ -34,23 +46,6 @@ public class SwitchPreference extends BasePreference {
     @Override
     protected void findView() {
         switchCompat = (CompoundButton) findViewById(R.id.compoundbutton_cb);
-    }
-
-    @Override
-    protected void setListeners() {
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchCompat.setChecked(!switchCompat.isChecked());
-            }
-        });
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dao.putBoolean(key,isChecked);
-                onPreferenceCallback.onCheckedChanged(key, buttonView, isChecked);
-            }
-        });
     }
 
     public void setChecked(boolean value) {
