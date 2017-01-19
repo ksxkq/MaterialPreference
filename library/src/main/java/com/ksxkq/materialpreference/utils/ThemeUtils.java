@@ -38,6 +38,10 @@ public class ThemeUtils {
         return getThemeAttrColor(context, R.attr.colorPrimaryDark);
     }
 
+    public static int getAccentColor(Context context) {
+        return getThemeAttrColor(context, R.attr.colorAccent);
+    }
+
     public static void tintImageView(ImageView imageView, @ColorRes int color) {
         imageView.setColorFilter(imageView.getResources().getColor(color));
     }

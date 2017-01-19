@@ -16,24 +16,24 @@ public class SeekbarPreference extends BasePreference {
 
     public static final int MAX = 100;
 
-    private SeekBar mSeekBar;
-    private TextView mValueTv;
+    public SeekBar seekBar;
+    public TextView valueTv;
     private int defaultValue;
 
     public SeekbarPreference(Context context, final String key, String title, int defaultValue, int max) {
         super(context, key, title);
         this.defaultValue = defaultValue;
         if (max == 0) max = MAX;
-        mSeekBar.setMax(max);
+        seekBar.setMax(max);
         int progress = dao.getInt(key, defaultValue);
-        mSeekBar.setProgress(progress);
-        mValueTv.setText(String.valueOf(progress));
+        seekBar.setProgress(progress);
+        valueTv.setText(String.valueOf(progress));
 
-        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 onPreferenceCallback.onProgressChanged(key, seekBar, progress, fromUser);
-                mValueTv.setText(String.valueOf(progress));
+                valueTv.setText(String.valueOf(progress));
             }
 
             @Override
@@ -43,8 +43,8 @@ public class SeekbarPreference extends BasePreference {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                onPreferenceCallback.onStopTrackingTouch(key, seekBar);
                 dao.putInt(key, seekBar.getProgress());
+                onPreferenceCallback.onStopTrackingTouch(key, seekBar);
             }
         });
     }
@@ -65,16 +65,16 @@ public class SeekbarPreference extends BasePreference {
 
     @Override
     protected void findView() {
-        mSeekBar = (SeekBar) findViewById(R.id.seekbar_sb);
-        mValueTv = (TextView) findViewById(value_tv);
+        seekBar = (SeekBar) findViewById(R.id.seekbar_sb);
+        valueTv = (TextView) findViewById(value_tv);
     }
 
     public void setMax(int max) {
-        mSeekBar.setMax(max);
+        seekBar.setMax(max);
     }
 
     public void setProgress(int progress) {
-        mSeekBar.setProgress(progress);
+        seekBar.setProgress(progress);
     }
 
     public int getDefaultValue() {

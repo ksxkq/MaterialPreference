@@ -5,10 +5,10 @@
         <item name="android:id">@id/root</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">@dimen/material_preference_padding_top_bottom</item>
+        <item name="android:paddingLeft">@dimen/material_preference_padding_left_right</item>
+        <item name="android:paddingRight">@dimen/material_preference_padding_left_right</item>
+        <item name="android:paddingBottom">@dimen/material_preference_padding_top_bottom</item>
         <item name="android:layout_height">@dimen/material_preference_height</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@drawable/bg_material_preference</item>

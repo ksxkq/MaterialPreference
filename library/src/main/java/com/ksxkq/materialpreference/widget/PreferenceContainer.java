@@ -5,12 +5,16 @@ import android.support.annotation.ArrayRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.ksxkq.materialpreference.MaterialPreferenceConfig;
 import com.ksxkq.materialpreference.OnPreferenceCallback;
 import com.ksxkq.materialpreference.R;
+import com.ksxkq.materialpreference.utils.Utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -159,14 +163,17 @@ public class PreferenceContainer extends ScrollView {
         return this;
     }
 
-//    public PreferenceContainer addLine() {
-//        View line = LayoutInflater.from(getContext()).inflate(R.layout.line, this, false);
-//        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
-//        params.leftMargin = Utils.dip2px(getContext(), 8);
-//        params.rightMargin = Utils.dip2px(getContext(), 8);
-//        mContainer.addView(line, params);
-//        return this;
-//    }
+    public PreferenceContainer addLine() {
+        View line = LayoutInflater.from(getContext()).inflate(R.layout.line, mContainer, false);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) line.getLayoutParams();
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = Utils.dpToPixels(getContext(), 1) / 2;
+        int marginLeftRight = getResources().getDimensionPixelSize(R.dimen.material_preference_padding_left_right);
+        params.leftMargin = marginLeftRight;
+        params.rightMargin = marginLeftRight;
+        mContainer.addView(line, params);
+        return this;
+    }
 
     public ScreenPreference getScreenPreference(String key) {
         return (ScreenPreference) mPreferenceMap.get(key);
@@ -184,16 +191,8 @@ public class PreferenceContainer extends ScrollView {
         return mPreferenceMap;
     }
 
-    private boolean isSide(String key) {
-        return key.toLowerCase().contains("side");
-    }
-
-    private boolean isTop(String key) {
-        return key.toLowerCase().contains("top");
-    }
-
-    private boolean isBottom(String key) {
-        return key.toLowerCase().contains("bottom");
+    public LinearLayout getContainer() {
+        return mContainer;
     }
 
     public String getContainerKey() {
