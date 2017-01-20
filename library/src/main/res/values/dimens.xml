@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="material_preference_category_title_size">15sp</dimen>
+    <dimen name="material_preference_category_title_size">14sp</dimen>
     <dimen name="material_preference_title_size">17sp</dimen>
     <dimen name="material_preference_height">52dp</dimen>
     <dimen name="material_preference_padding_left_right">16dp</dimen>

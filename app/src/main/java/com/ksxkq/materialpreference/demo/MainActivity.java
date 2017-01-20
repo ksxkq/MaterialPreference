@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
                 .addScreenPreference("a2a", "编辑菜单")
                 .addScreenPreference("setting", "更多设置");
 
+        container.getScreenPreference("setting").leftIconIv.setVisibility(View.VISIBLE);
+        container.getScreenPreference("setting").leftIconIv.setImageResource(R.drawable.information_outline);
+
         onPreferenceCallback = new SimpleOnPreferenceCallback() {
             @Override
             public void onPreferenceClick(String key, View view) {
