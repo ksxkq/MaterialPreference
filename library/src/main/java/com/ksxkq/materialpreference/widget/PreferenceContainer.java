@@ -61,6 +61,18 @@ public class PreferenceContainer extends ScrollView {
         return this;
     }
 
+    public PreferenceContainer addPreferences(List<BasePreference> preferences) {
+        for (int i = 0; i < preferences.size(); i++) {
+            BasePreference preference = preferences.get(i);
+            // 避免重复添加
+            if (!mPreferenceMap.containsKey(preference.key)) {
+                mContainer.addView(preference);
+                mPreferenceMap.put(preference.key, preference);
+            }
+        }
+        return this;
+    }
+
     public void removePreference(BasePreference preference) {
         if (preference != null) {
             mContainer.removeView(preference);
@@ -78,15 +90,6 @@ public class PreferenceContainer extends ScrollView {
     public void removePreference(String key) {
         BasePreference preference = mPreferenceMap.get(key);
         removePreference(preference);
-    }
-
-    public PreferenceContainer addPreferences(List<BasePreference> preferences) {
-        for (int i = 0; i < preferences.size(); i++) {
-            BasePreference preference = preferences.get(i);
-            mContainer.addView(preference);
-            mPreferenceMap.put(preference.key, preference);
-        }
-        return this;
     }
 
     public PreferenceContainer addCategoryPreference(String key, @StringRes int titleRes) {
