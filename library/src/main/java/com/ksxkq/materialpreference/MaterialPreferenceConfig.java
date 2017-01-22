@@ -90,7 +90,9 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
 
     @Override
     public void onSingleChoice(String key, String name, String value, View view) {
-
+        for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackMap.keySet()) {
+            onPreferenceCallback.onSingleChoice(key, name,value,view);
+        }
     }
 
     @Override

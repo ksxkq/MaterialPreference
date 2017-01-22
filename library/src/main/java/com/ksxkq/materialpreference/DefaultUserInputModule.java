@@ -49,10 +49,11 @@ public class DefaultUserInputModule implements UserInputModule {
                         final String[] names = context.getResources().getStringArray(nameRes);
 
                         String selectedValue = values[which];
+                        String selectedName = names[which];
                         // 保存
                         MaterialPreferenceConfig.getInstance().getStorageModule(mContext).putString(key, selectedValue);
                         // 回调
-                        MaterialPreferenceConfig.getInstance().onSingleChoice(key, names[which], selectedValue, view);
+                        MaterialPreferenceConfig.getInstance().onSingleChoice(key, selectedName, selectedValue, view);
                         dialog.dismiss();
                     }
                 })

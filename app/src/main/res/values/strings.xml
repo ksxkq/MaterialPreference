@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MaterialPreference</string>
+    <string name="title_sensitivity">灵敏度</string>
 </resources>

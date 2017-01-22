@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 .addCategoryPreference("", "其它设置")
                 .addScreenPreference("a1a", "消息提示")
                 .addScreenPreference("a2a", "编辑菜单")
+                .addListPreference("sensitivity", R.string.title_sensitivity, R.array.sensitivity_names, R.array.sensitivity_names)
                 .addScreenPreference("setting", "更多设置");
 
         container.getScreenPreference("setting").leftIconIv.setVisibility(View.VISIBLE);
@@ -54,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(String key, CompoundButton compoundButton, boolean isChecked) {
                 super.onCheckedChanged(key, compoundButton, isChecked);
+            }
+
+            @Override
+            public void onSingleChoice(String key, String name, String value, View view) {
+                super.onSingleChoice(key, name, value, view);
             }
         };
         container.registerCallback(onPreferenceCallback);

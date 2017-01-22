@@ -55,5 +55,4 @@ public class ListPreference extends ScreenPreference {
         void onDismiss();
     }
 
-
 }
