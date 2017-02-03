@@ -8,7 +8,7 @@ import com.ksxkq.materialpreference.R;
 /**
  * Created by xukq on 2/27/16.
  */
-public class CheckBoxPreference extends SwitchPreference {
+public class CheckBoxPreference extends CompoundButtonPreference {
 
     public CheckBoxPreference(Context context, String key, String title, boolean defaultValue) {
         super(context, key, title, defaultValue);
