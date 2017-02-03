@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -60,6 +61,24 @@ public abstract class BasePreference extends LinearLayout {
 
     public String getTitle() {
         return titleTv.getText().toString();
+    }
+
+    /**
+     * 开启咨询按钮并设置监听
+     */
+    public void setInfoButtonClickable() {
+        ImageView infoBtn = (ImageView) findViewById(R.id.right_second_icon_iv);
+        if (infoBtn != null) {
+            infoBtn.setImageResource(R.drawable.information_outline);
+            infoBtn.setColorFilter(getResources().getColor(R.color.material_preference_info_btn_color));
+            infoBtn.setVisibility(VISIBLE);
+            infoBtn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onPreferenceCallback.onSecondIconClick(key, v);
+                }
+            });
+        }
     }
 
     private void init() {

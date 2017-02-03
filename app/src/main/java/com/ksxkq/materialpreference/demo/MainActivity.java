@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 .addListPreference("sensitivity", R.string.title_sensitivity, R.array.sensitivity_names, R.array.sensitivity_names)
                 .addScreenPreference("setting", "更多设置");
 
+        container.getPreferenceMap().get("switch").setInfoButtonClickable();
         container.getScreenPreference("setting").leftIconIv.setVisibility(View.VISIBLE);
         container.getScreenPreference("setting").leftIconIv.setImageResource(R.drawable.information_outline);
 
@@ -60,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSingleChoice(String key, String name, String value, View view) {
                 super.onSingleChoice(key, name, value, view);
+            }
+
+            @Override
+            public void onSecondIconClick(String key, View view) {
+                super.onSecondIconClick(key, view);
             }
         };
         container.registerCallback(onPreferenceCallback);

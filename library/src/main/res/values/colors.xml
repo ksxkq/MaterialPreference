@@ -14,5 +14,6 @@
     <color name="material_preference_title">#212121</color>
     <color name="material_preference_summary">#727272</color>
     <color name="material_preference_secondary_text">#8a000000</color>
+    <color name="material_preference_info_btn_color">#727272</color>
     <color name="material_preference_bg_ripple">#e2e2e2</color>
 </resources>
