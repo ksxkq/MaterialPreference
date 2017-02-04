@@ -146,13 +146,6 @@ public class PreferenceContainer extends ScrollView {
         return this;
     }
 
-    public PreferenceContainer addInstructionScreenPreference(String key, @StringRes int titleRes, @StringRes int instructionRes) {
-        addScreenPreference(key, titleRes);
-        ScreenPreference screenPreference = getScreenPreference(key);
-//        screenPreference.setInstruction(instructionRes);
-        return this;
-    }
-
     public PreferenceContainer addScreenPreference(String key, String title) {
         ScreenPreference screenPreference = new ScreenPreference(getContext(), key, title);
         mContainer.addView(screenPreference);
@@ -162,7 +155,8 @@ public class PreferenceContainer extends ScrollView {
 
     public PreferenceContainer addScreenPreference(String key, @StringRes int titleRes, @DrawableRes int rightIconRes) {
         addScreenPreference(key, titleRes);
-        getScreenPreference(key).setRightIcon(rightIconRes);
+        ScreenPreference screenPreference = getPreference(key);
+        screenPreference.setRightIcon(rightIconRes);
         return this;
     }
 
@@ -178,16 +172,8 @@ public class PreferenceContainer extends ScrollView {
         return this;
     }
 
-    public ScreenPreference getScreenPreference(String key) {
-        return (ScreenPreference) mPreferenceMap.get(key);
-    }
-
-    public CheckBoxPreference getCheckBoxPreference(String key) {
-        return (CheckBoxPreference) mPreferenceMap.get(key);
-    }
-
-    public SeekbarPreference getSeekbarPreference(String key) {
-        return (SeekbarPreference) mPreferenceMap.get(key);
+    public <T> T getPreference(String key) {
+        return (T)mPreferenceMap.get(key);
     }
 
     public Map<String, BasePreference> getPreferenceMap() {

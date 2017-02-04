@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
                 .addScreenPreference("setting", "更多设置");
 
         container.getPreferenceMap().get("switch").setInfoButtonClickable();
-        container.getScreenPreference("setting").leftIconIv.setVisibility(View.VISIBLE);
-        container.getScreenPreference("setting").leftIconIv.setImageResource(R.drawable.information_outline);
+        ((ScreenPreference)container.getPreference("setting")).leftIconIv.setVisibility(View.VISIBLE);
+        ((ScreenPreference)container.getPreference("setting")).leftIconIv.setImageResource(R.drawable.information_outline);
 
         onPreferenceCallback = new SimpleOnPreferenceCallback() {
             @Override
@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onInfoIconClick(String key, View view) {
-                super.onInfoIconClick(key, view);
+            public void onInfoIconClick(String key, String title, View view) {
+                super.onInfoIconClick(key, title, view);
             }
         };
         container.registerCallback(onPreferenceCallback);
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_FOR_SUMMARY && resultCode == RESULT_OK) {
             String key = data.getStringExtra("key");
             String summary = data.getStringExtra("summary");
-            final ScreenPreference preference = container.getScreenPreference(key);
+            final ScreenPreference preference = container.getPreference(key);
             if (preference != null) {
                 preference.setSummary(summary);
             }
