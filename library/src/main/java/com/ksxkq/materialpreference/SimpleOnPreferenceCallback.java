@@ -21,6 +21,11 @@ public class SimpleOnPreferenceCallback implements OnPreferenceCallback {
     }
 
     @Override
+    public void onInfoIconClick(String key, String title, View view) {
+
+    }
+
+    @Override
     public void onSingleChoice(String key, String name, String value, View view) {
 
     }

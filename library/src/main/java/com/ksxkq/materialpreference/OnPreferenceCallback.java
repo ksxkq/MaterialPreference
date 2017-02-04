@@ -15,6 +15,8 @@ public interface OnPreferenceCallback {
 
     void onSecondIconClick(String key, View view);
 
+    void onInfoIconClick(String key, String title, View view);
+
     void onSingleChoice(String key, String name, String value, View view);
 
     void onProgressChanged(String key, SeekBar seekBar, int progress, boolean isUser);

@@ -89,6 +89,13 @@ public class MaterialPreferenceConfig implements OnPreferenceCallback {
     }
 
     @Override
+    public void onInfoIconClick(String key,String title, View view) {
+        for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackMap.keySet()) {
+            onPreferenceCallback.onInfoIconClick(key, title, view);
+        }
+    }
+
+    @Override
     public void onSingleChoice(String key, String name, String value, View view) {
         for (OnPreferenceCallback onPreferenceCallback : onPreferenceCallbackMap.keySet()) {
             onPreferenceCallback.onSingleChoice(key, name,value,view);

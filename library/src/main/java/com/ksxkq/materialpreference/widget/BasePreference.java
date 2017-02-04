@@ -64,7 +64,7 @@ public abstract class BasePreference extends LinearLayout {
     }
 
     /**
-     * 开启咨询按钮并设置监听
+     * 开启咨询按钮并设置监听, 会在 OnPreferenceCallback.onInfoIconClick(String key, View view) 中回调
      */
     public void setInfoButtonClickable() {
         ImageView infoBtn = (ImageView) findViewById(R.id.right_second_icon_iv);
@@ -75,7 +75,7 @@ public abstract class BasePreference extends LinearLayout {
             infoBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onPreferenceCallback.onSecondIconClick(key, v);
+                    onPreferenceCallback.onInfoIconClick(key, getTitle(), v);
                 }
             });
         }

@@ -67,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
             public void onSecondIconClick(String key, View view) {
                 super.onSecondIconClick(key, view);
             }
+
+            @Override
+            public void onInfoIconClick(String key, View view) {
+                super.onInfoIconClick(key, view);
+            }
         };
         container.registerCallback(onPreferenceCallback);
     }
