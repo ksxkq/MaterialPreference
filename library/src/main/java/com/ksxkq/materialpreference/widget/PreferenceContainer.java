@@ -56,19 +56,24 @@ public class PreferenceContainer extends ScrollView {
     }
 
     public PreferenceContainer addPreference(BasePreference preference) {
-        mContainer.addView(preference);
-        mPreferenceMap.put(preference.key, preference);
+        if (mPreferenceMap.containsKey(preference.key)) {
+            throw new IllegalArgumentException("preference must be unique");
+        }
+
+        // 避免重复添加
+        if (!mPreferenceMap.containsKey(preference.key)) {
+            mContainer.addView(preference);
+            mPreferenceMap.put(preference.key, preference);
+        } else {
+
+        }
         return this;
     }
 
     public PreferenceContainer addPreferences(List<BasePreference> preferences) {
         for (int i = 0; i < preferences.size(); i++) {
             BasePreference preference = preferences.get(i);
-            // 避免重复添加
-            if (!mPreferenceMap.containsKey(preference.key)) {
-                mContainer.addView(preference);
-                mPreferenceMap.put(preference.key, preference);
-            }
+            addPreference(preference);
         }
         return this;
     }
@@ -99,7 +104,7 @@ public class PreferenceContainer extends ScrollView {
 
     public PreferenceContainer addCategoryPreference(String key, String title) {
         CategoryPreference categoryPreference = new CategoryPreference(getContext(), key, title);
-        mContainer.addView(categoryPreference);
+        addPreference(categoryPreference);
         return this;
     }
 
@@ -110,8 +115,7 @@ public class PreferenceContainer extends ScrollView {
 
     public PreferenceContainer addSwitchPreference(String key, String title, boolean defaultValue) {
         SwitchPreference switchPreference = new SwitchPreference(getContext(), key, title, defaultValue);
-        mContainer.addView(switchPreference);
-        mPreferenceMap.put(key, switchPreference);
+        addPreference(switchPreference);
         return this;
     }
 
@@ -122,8 +126,7 @@ public class PreferenceContainer extends ScrollView {
 
     public PreferenceContainer addCheckBoxPreference(String key, String title, boolean defaultValue) {
         CheckBoxPreference checkBoxPreference = new CheckBoxPreference(getContext(), key, title, defaultValue);
-        mContainer.addView(checkBoxPreference);
-        mPreferenceMap.put(key, checkBoxPreference);
+        addPreference(checkBoxPreference);
         return this;
     }
 
@@ -134,8 +137,7 @@ public class PreferenceContainer extends ScrollView {
 
     public PreferenceContainer addSeekbarPreference(String key, String title, int defaultValue, int max) {
         SeekbarPreference seekbarPreference = new SeekbarPreference(getContext(), key, title, defaultValue, max);
-        mContainer.addView(seekbarPreference);
-        mPreferenceMap.put(key, seekbarPreference);
+        addPreference(seekbarPreference);
         return this;
     }
 
@@ -146,8 +148,7 @@ public class PreferenceContainer extends ScrollView {
 
     public PreferenceContainer addListPreference(String key, String title, @ArrayRes int itemNames, @ArrayRes int itemValues) {
         ListPreference listPreference = new ListPreference(getContext(), key, title, itemNames, itemValues);
-        mContainer.addView(listPreference);
-        mPreferenceMap.put(key, listPreference);
+        addPreference(listPreference);
         return this;
     }
 
@@ -158,8 +159,7 @@ public class PreferenceContainer extends ScrollView {
 
     public PreferenceContainer addScreenPreference(String key, String title) {
         ScreenPreference screenPreference = new ScreenPreference(getContext(), key, title);
-        mContainer.addView(screenPreference);
-        mPreferenceMap.put(key, screenPreference);
+        addPreference(screenPreference);
         return this;
     }
 
@@ -208,5 +208,9 @@ public class PreferenceContainer extends ScrollView {
 
     public void unregisterCallback(OnPreferenceCallback onPreferenceCallback) {
         MaterialPreferenceConfig.getInstance().unregisterOnPreferenceCallback(onPreferenceCallback);
+    }
+
+    public boolean contains(String key) {
+        return mPreferenceMap.containsKey(key);
     }
 }
