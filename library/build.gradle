@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 25
@@ -24,4 +25,16 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:25.1.0'
+}
+
+//添加
+publish {
+    userOrg = USERORG
+    groupId = GROUPID//jcenter上的路径
+    artifactId = ARTIFACTID
+    publishVersion = PUBLISHVERSION
+    desc = DESC //描述，不重要
+    website = WEBSITE
+    bintrayUser = BINTRAYUSER //你的用户名
+    bintrayKey = BINTRAYKEY //在你的账户里面查找
 }

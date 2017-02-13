@@ -2,9 +2,9 @@
 <resources>
 
     <string-array name="sensitivity_names">
-        <item>灵敏</item>
-        <item>较灵敏</item>
-        <item>一般</item>
+        <item>higher</item>
+        <item>high</item>
+        <item>normal</item>
     </string-array>
 
     <string-array name="sensitivity_values">

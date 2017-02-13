@@ -116,7 +116,12 @@ public class PreferenceContainer extends ScrollView {
     }
 
     public PreferenceContainer addCheckBoxPreference(String key, @StringRes int titleRes, boolean defaultValue) {
-        CheckBoxPreference checkBoxPreference = new CheckBoxPreference(getContext(), key, titleRes, defaultValue);
+        addCheckBoxPreference(key, getStr(titleRes), defaultValue);
+        return this;
+    }
+
+    public PreferenceContainer addCheckBoxPreference(String key, String title, boolean defaultValue) {
+        CheckBoxPreference checkBoxPreference = new CheckBoxPreference(getContext(), key, title, defaultValue);
         mContainer.addView(checkBoxPreference);
         mPreferenceMap.put(key, checkBoxPreference);
         return this;
@@ -135,7 +140,12 @@ public class PreferenceContainer extends ScrollView {
     }
 
     public PreferenceContainer addListPreference(String key, @StringRes int titleRes, @ArrayRes int itemNames, @ArrayRes int itemValues) {
-        ListPreference listPreference = new ListPreference(getContext(), key, titleRes, itemNames, itemValues);
+        addListPreference(key, getStr(titleRes), itemNames, itemValues);
+        return this;
+    }
+
+    public PreferenceContainer addListPreference(String key, String title, @ArrayRes int itemNames, @ArrayRes int itemValues) {
+        ListPreference listPreference = new ListPreference(getContext(), key, title, itemNames, itemValues);
         mContainer.addView(listPreference);
         mPreferenceMap.put(key, listPreference);
         return this;
@@ -173,7 +183,7 @@ public class PreferenceContainer extends ScrollView {
     }
 
     public <T> T getPreference(String key) {
-        return (T)mPreferenceMap.get(key);
+        return (T) mPreferenceMap.get(key);
     }
 
     public Map<String, BasePreference> getPreferenceMap() {

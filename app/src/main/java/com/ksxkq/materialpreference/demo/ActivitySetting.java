@@ -20,7 +20,7 @@ public class ActivitySetting extends AppCompatActivity {
 
     public void click(View view) {
         Intent data = new Intent();
-        data.putExtra("summary", "富坚义博");
+        data.putExtra("summary", "Result Summary");
         data.putExtra("key", getIntent().getStringExtra("key"));
         setResult(RESULT_OK, data);
         finish();
