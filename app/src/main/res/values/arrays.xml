@@ -2,9 +2,9 @@
 <resources>
 
     <string-array name="sensitivity_names">
-        <item>higher</item>
-        <item>high</item>
-        <item>normal</item>
+        <item>Higher</item>
+        <item>High</item>
+        <item>Normal</item>
     </string-array>
 
     <string-array name="sensitivity_values">
