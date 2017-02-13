@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.ksxkq.materialpreference.SimpleOnPreferenceCallback;
 import com.ksxkq.materialpreference.widget.PreferenceContainer;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, ActivitySetting.class);
                     intent.putExtra("key", key);
                     startActivityForResult(intent, REQUEST_CODE_FOR_SUMMARY);
+                } else {
+                    Toast.makeText(MainActivity.this, key + " is click", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onInfoIconClick(String key, String title, View view) {
-                super.onInfoIconClick(key, title, view);
+                Toast.makeText(MainActivity.this, key + "InfoButton is click", Toast.LENGTH_SHORT).show();
             }
         };
         mContainer.registerCallback(onPreferenceCallback);
@@ -106,11 +109,23 @@ public class MainActivity extends AppCompatActivity {
                 int i = item.getItemId();
                 switch (i) {
                     case R.id.add:
-                        ScreenPreference newPreference = new ScreenPreference(MainActivity.this, "newScr", "New Add Screen");
-                        mContainer.addPreference(newPreference);
+                        if (!mContainer.contains("NewScr")) {
+                            ScreenPreference newPreference = new ScreenPreference(MainActivity.this, "NewScr", "New Screen");
+                            mContainer.addPreference(newPreference);
+                        }
+                        // 也可以同时添加多个
+                        // mContainer.addPreferences(List preferenceList);
                         break;
                     case R.id.remove:
-                        mContainer.removePreference("newScr");
+                        mContainer.removePreference("NewScr");
+                        // 同时删除多个
+                        // mContainer.removePreferences(List preferenceList);
+                        break;
+                    case R.id.add_info_btn:
+                        ScreenPreference infoButtonScr = new ScreenPreference(MainActivity.this, "InfoButtonScr", "InfoButton Screen");
+                        // 设置 Info 按钮生效，可以在回调的 onInfoIconClick() 方法中监听
+                        infoButtonScr.setInfoButtonClickable();
+                        mContainer.addPreference(infoButtonScr);
                         break;
                 }
                 return true;
@@ -119,47 +134,4 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-//    // 设置 Info 按钮生效，可以在回调的 onInfoIconClick() 方法中监听
-//    container.getPreferenceMap().get("switch_main").setInfoButtonClickable();
-
-    public void add(View view) {
-//        PreferenceScreen newPreference = new PreferenceScreen("newScr", "新增 Screen");
-//        materialPreferenceManager.appendPreferenceBehindKey("setting", newPreference);
-    }
-
-    public void remove(View view) {
-//        materialPreferenceManager.removePreference("newScr");
-    }
-
-//    private List<BasePreference> newList = new ArrayList<>();
-
-    public void addList(View view) {
-//        PreferenceScreen newPreference = new PreferenceScreen("newPreference1", "newPreference1");
-//        PreferenceScreen newPreference2 = new PreferenceScreen("newPreference2", "newPreference2");
-//        PreferenceScreen newPreference3 = new PreferenceScreen("newPreference3", "newPreference3");
-//        newList.add(newPreference);
-//        newList.add(newPreference2);
-//        newList.add(newPreference3);
-//        materialPreferenceManager.addPreferences(newList);
-    }
-
-//    List<BasePreference> list = new ArrayList<>();
-
-    public void updateList(View view) {
-//        PreferenceScreen newPreference = new PreferenceScreen("updateList1", "updateScr");
-//        PreferenceScreen newPreference2 = new PreferenceScreen("updateList2", "updateScr2");
-//        PreferenceScreen newPreference3 = new PreferenceScreen("updateList3", "updateScr3");
-//        list.add(newPreference);
-//        list.add(newPreference2);
-//        list.add(newPreference3);
-//        materialPreferenceManager.updatePreferences(list);
-    }
-
-    public void updateContent(View view) {
-//        Drawable tintDrawable = ThemeUtils.tintDrawable(getResources().getDrawable(R.drawable.information_outline), getResources().getColor(R.color.material_preference_summary));
-//        BasePreference newPreference = list.get(1);
-//        newPreference.setTitle("新的 Title");
-//        newPreference.setRightSecondIconDrawable(tintDrawable);
-//        materialPreferenceManager.updatePreference(newPreference);
-    }
 }
