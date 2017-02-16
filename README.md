@@ -5,6 +5,14 @@ MaterialPreference
 
 ## 使用方法
 
+The Gradle dependency is available via jCenter.
+```gradle
+dependencies {
+	// ... other dependencies here
+    compile 'com.ksxkq:materialpreference:1.0.0'
+}
+```
+
 布局文件中添加
 ```xml
 <com.ksxkq.materialpreference.widget.PreferenceContainer
