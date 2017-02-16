@@ -4,12 +4,12 @@ import android.content.Context;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.ksxkq.materialpreference.MaterialPreferenceConfig;
 import com.ksxkq.materialpreference.OnPreferenceCallback;
@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * Created by xukq on 1/17/16.
  */
-public class PreferenceContainer extends ScrollView {
+public class PreferenceContainer extends NestedScrollView {
 
     private Map<String, BasePreference> mPreferenceMap = new HashMap<>();
     private LinearLayout mContainer;
