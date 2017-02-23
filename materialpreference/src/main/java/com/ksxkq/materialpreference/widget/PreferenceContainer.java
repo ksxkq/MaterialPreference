@@ -1,11 +1,13 @@
 package com.ksxkq.materialpreference.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +27,15 @@ import java.util.Map;
  */
 public class PreferenceContainer extends NestedScrollView {
 
+    public static final String TAG = PreferenceContainer.class.getSimpleName();
+
     private Map<String, BasePreference> mPreferenceMap = new HashMap<>();
     private LinearLayout mContainer;
     private String mContainerKey;
 
     public PreferenceContainer(Context context) {
         super(context);
-        init(context);
+        init(context, null);
     }
 
     public PreferenceContainer(Context context, String containerKey) {
@@ -41,23 +45,31 @@ public class PreferenceContainer extends NestedScrollView {
 
     public PreferenceContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init(context, attrs);
     }
 
     public PreferenceContainer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, attrs);
     }
 
-    private void init(Context context) {
-        mContainer = (LinearLayout) inflate(context, R.layout.preference_container_ll, null);
+    private void init(Context context, AttributeSet attrs) {
+        boolean animateLayoutChanges = true;
+        if (attrs != null) {
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.mp);
+            animateLayoutChanges = a.getBoolean(R.styleable.mp_animateLayoutChanges, true);
+            a.recycle();
+        }
+
+        int preference_container_ll_res = animateLayoutChanges ? R.layout.preference_container_ll : R.layout.preference_container_ll_no_anim;
+        mContainer = (LinearLayout) inflate(context, preference_container_ll_res, null);
         addView(mContainer);
         setBackgroundResource(R.color.bg_activity);
     }
 
     public PreferenceContainer addPreference(BasePreference preference) {
         if (mPreferenceMap.containsKey(preference.key)) {
-            throw new IllegalArgumentException("preference must be unique");
+            Log.e(TAG, preference.key + " is already added");
         }
 
         // 避免重复添加
