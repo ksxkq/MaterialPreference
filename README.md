@@ -9,7 +9,7 @@ The Gradle dependency is available via jCenter.
 ```gradle
 dependencies {
 	// ... other dependencies here
-    compile 'com.ksxkq:materialpreference:1.0.1'
+    compile 'com.ksxkq:materialpreference:1.0.2'
 }
 ```
 
