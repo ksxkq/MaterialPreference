@@ -2,9 +2,11 @@ package com.ksxkq.materialpreference.widget;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.ksxkq.materialpreference.MaterialPreferenceConfig;
 import com.ksxkq.materialpreference.R;
 
 import static com.ksxkq.materialpreference.R.id.value_tv;
@@ -19,6 +21,7 @@ public class SeekbarPreference extends BasePreference {
     public SeekBar seekBar;
     public TextView valueTv;
     private int defaultValue;
+    private SeekBar.OnSeekBarChangeListener mOnSeekBarChangeListener;
 
     public SeekbarPreference(Context context, final String key, String title, int defaultValue, int max) {
         super(context, key, title);
@@ -29,7 +32,7 @@ public class SeekbarPreference extends BasePreference {
         seekBar.setProgress(progress);
         valueTv.setText(String.valueOf(progress));
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        mOnSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 onPreferenceCallback.onProgressChanged(key, seekBar, progress, fromUser);
@@ -43,10 +46,12 @@ public class SeekbarPreference extends BasePreference {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                SeekbarPreference.this.seekBar.setProgress(seekBar.getProgress());
                 dao.putInt(key, seekBar.getProgress());
                 onPreferenceCallback.onStopTrackingTouch(key, seekBar);
             }
-        });
+        };
+        seekBar.setOnSeekBarChangeListener(mOnSeekBarChangeListener);
     }
 
     public SeekbarPreference(Context context, String key, @StringRes int titleRes, int defaultValue, int max) {
@@ -55,7 +60,18 @@ public class SeekbarPreference extends BasePreference {
 
     @Override
     protected void logic() {
-        setClickable(false);
+
+    }
+
+    @Override
+    protected void setListeners() {
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MaterialPreferenceConfig.getInstance().getUserInputModule(getContext())
+                        .showSeekbarEditInput(getContext(), getTitle(), seekBar.getProgress(), seekBar.getMax(), mOnSeekBarChangeListener);
+            }
+        });
     }
 
     @Override
@@ -80,4 +96,5 @@ public class SeekbarPreference extends BasePreference {
     public int getDefaultValue() {
         return defaultValue;
     }
+
 }
