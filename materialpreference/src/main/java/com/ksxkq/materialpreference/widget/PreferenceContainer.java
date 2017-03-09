@@ -6,6 +6,7 @@ import android.support.annotation.ArrayRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.widget.NestedScrollView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.ksxkq.materialpreference.OnPreferenceCallback;
 import com.ksxkq.materialpreference.R;
 import com.ksxkq.materialpreference.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +30,10 @@ import java.util.Map;
 public class PreferenceContainer extends NestedScrollView {
 
     public static final String TAG = PreferenceContainer.class.getSimpleName();
+    private static final int NOT_ADD = -1;
 
     private Map<String, BasePreference> mPreferenceMap = new HashMap<>();
+    private List<String> mPositionList = new ArrayList<>();
     private LinearLayout mContainer;
     private String mContainerKey;
 
@@ -76,8 +80,18 @@ public class PreferenceContainer extends NestedScrollView {
         if (!mPreferenceMap.containsKey(preference.key)) {
             mContainer.addView(preference);
             mPreferenceMap.put(preference.key, preference);
+            mPositionList.add(preference.key);
         } else {
 
+        }
+        return this;
+    }
+
+    public PreferenceContainer addPreferenceBehindKey(BasePreference preference, String key) {
+        int pointPosition = getPositionByKey(key);
+        int index = pointPosition + 1;
+        if (NOT_ADD != pointPosition && index <= mContainer.getChildCount()) {
+            mContainer.addView(preference, index);
         }
         return this;
     }
@@ -94,6 +108,7 @@ public class PreferenceContainer extends NestedScrollView {
         if (preference != null) {
             mContainer.removeView(preference);
             mPreferenceMap.remove(preference.key);
+            mPositionList.remove(preference.key);
         }
     }
 
@@ -224,5 +239,19 @@ public class PreferenceContainer extends NestedScrollView {
 
     public boolean contains(String key) {
         return mPreferenceMap.containsKey(key);
+    }
+
+    /**
+     * 获取对应 key 所在位置
+     * @param key
+     * @return 如果找不到，返回 NOT_ADD；找到返回对应位置
+     */
+    private int getPositionByKey(String key) {
+        for (int i = 0; i < mPositionList.size(); i++) {
+            if (TextUtils.equals(key, mPositionList.get(i))) {
+                return i;
+            }
+        }
+        return NOT_ADD;
     }
 }
