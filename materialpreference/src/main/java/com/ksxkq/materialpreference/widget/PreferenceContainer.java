@@ -93,7 +93,7 @@ public class PreferenceContainer extends NestedScrollView {
         if (NOT_ADD != pointPosition && index <= mContainer.getChildCount()) {
             mContainer.addView(preference, index);
             mPreferenceMap.put(preference.key, preference);
-            mPositionList.add(preference.key);
+            mPositionList.add(index, preference.key);
         }
         return this;
     }
@@ -245,6 +245,7 @@ public class PreferenceContainer extends NestedScrollView {
 
     /**
      * 获取对应 key 所在位置
+     *
      * @param key
      * @return 如果找不到，返回 NOT_ADD；找到返回对应位置
      */
